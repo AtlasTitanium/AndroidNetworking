@@ -26,13 +26,6 @@ public class PlayerController : NetworkBehaviour {
         } 
 	}
 
-    void FixedUpdate(){
-        if(playerColor != null){
-            CmdChooseTeam(playerColor);
-            CmdUpdatePlayer();
-        }
-    }
-
 	[Command]
     public void CmdChooseTeam(Color color){
 		//Debug.Log("In the CMD: " + this.gameObject);
@@ -50,10 +43,5 @@ public class PlayerController : NetworkBehaviour {
     public void CmdCreatePlayer(){
         int playerNumber = NetworkServer.connections.Count - 1;
         this.gameObject.name = playerNumber.ToString();
-    }
-
-    [Command]
-    public void CmdUpdatePlayer(){
-        this.gameObject.name = this.gameObject.name;
     }
 }
