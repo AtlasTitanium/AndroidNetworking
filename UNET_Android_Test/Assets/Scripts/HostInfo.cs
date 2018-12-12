@@ -11,19 +11,23 @@ public class HostInfo : NetworkBehaviour {
 	public Texture Team2_Texture;
 	public Texture Team3_Texture;
 	public Texture Team4_Texture;
+	public List<GameObject> amountTeam1 = new List<GameObject>();
+	public List<GameObject> amountTeam2 = new List<GameObject>();
+	public List<GameObject> amountTeam3 = new List<GameObject>();
+	public List<GameObject> amountTeam4 = new List<GameObject>();
     GUIStyle titleStyle = new GUIStyle();
 	GUIStyle style = new GUIStyle();
 
 	void Update () {
-		if(!isServer){
-			this.enabled = false;
-			return;
-		}
         titleStyle.alignment = TextAnchor.MiddleCenter;
 		titleStyle.fontSize = Screen.height/12;
 
 		style.alignment = TextAnchor.MiddleLeft;
 		style.fontSize = Screen.height/24;
+
+		for(int i = 0; i < amountTeam1.Count; i++){
+
+		}
 	}
 
 	void OnGUI(){
@@ -38,22 +42,22 @@ public class HostInfo : NetworkBehaviour {
 		int BlockHeight = ((Screen.height - Screen.height/10) / 4);
 		int _BlockTitleHeight = ((Screen.height - Screen.height/10) / 8);
 			//Team 1
-			string team1Info = "  T_Size: ";
+			string team1Info = "  T_Size: " + amountTeam1.Count;
 			GUI.DrawTexture(new Rect(0, Screen.height/10, Screen.width, _BlockTitleHeight), Team1_Texture, ScaleMode.StretchToFill, true, 10.0F);
 			GUI.Box(new Rect(0, Screen.height/10 + _BlockTitleHeight, Screen.width, _BlockTitleHeight), team1Info, style);
 
 			//Team 2
-			string team2Info = "  T_Size: ";
+			string team2Info = "  T_Size: " + amountTeam2.Count;
 			GUI.DrawTexture(new Rect(0, ((Screen.height/10) + BlockHeight), Screen.width, _BlockTitleHeight), Team2_Texture, ScaleMode.StretchToFill, true, 10.0F);
 			GUI.Box(new Rect(0, ((Screen.height/10) + BlockHeight) + _BlockTitleHeight, Screen.width, _BlockTitleHeight), team2Info, style);
 
 			//Team 3
-			string team3Info = "  T_Size: ";
+			string team3Info = "  T_Size: " + amountTeam3.Count;
 			GUI.DrawTexture(new Rect(0, ((Screen.height/10) + (BlockHeight * 2)), Screen.width, _BlockTitleHeight), Team3_Texture, ScaleMode.StretchToFill, true, 10.0F);
 			GUI.Box(new Rect(0, ((Screen.height/10) + (BlockHeight * 2)) + _BlockTitleHeight, Screen.width, _BlockTitleHeight), team3Info, style);
 
 			//Team 4
-			string team4Info = "  T_Size: ";
+			string team4Info = "  T_Size: " + amountTeam4.Count;
 			GUI.DrawTexture(new Rect(0, (Screen.height - BlockHeight), Screen.width, _BlockTitleHeight), Team4_Texture, ScaleMode.StretchToFill, true, 10.0F);
 			GUI.Box(new Rect(0, (Screen.height - BlockHeight) + _BlockTitleHeight, Screen.width, _BlockTitleHeight), team4Info, style);
 	}

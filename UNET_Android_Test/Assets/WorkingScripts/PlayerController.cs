@@ -3,27 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public enum Team {Team1, Team2, Team3, Team4}
+public enum Team {NoTeam, Team1, Team2, Team3, Team4}
 public class PlayerController : NetworkBehaviour {
     public Team currentTeam;
     private Color playerColor;
-    void Start(){
-        if(isServer){
-            this.gameObject.name = "Host";
-        } else {
-            CmdCreatePlayer();
-			return;
-        }
-    }
+    private int playerNumber;
+    [SyncVar]
+    public bool ServerActive = false;
+
 	void Update () {
-        if(isServer){
-			this.enabled = false;
-			return;
-		}
-		if (!isLocalPlayer)
-        {
+        if(!isLocalPlayer){
             return;
-        } 
+        }
+        ServerActive = isServer;
+
+        if(!isServer){
+            CmdCreatePlayer();
+            return;
+        } else {
+            RpcCreateHost();
+            return;
+        }
 	}
 
 	[Command]
@@ -41,7 +41,23 @@ public class PlayerController : NetworkBehaviour {
 
     [Command]
     public void CmdCreatePlayer(){
-        int playerNumber = NetworkServer.connections.Count - 1;
+        RpcCreatePlayer();
+    }
+
+    [ClientRpc]
+    public void RpcCreatePlayer(){
+        playerNumber = NetworkServer.connections.Count - 1;
         this.gameObject.name = playerNumber.ToString();
     }
+
+    [ClientRpc]
+    public void RpcCreateHost(){
+        this.gameObject.GetComponent<HostInfo>().enabled = true;
+        playerNumber = 0;
+        this.gameObject.name = "Host";
+        this.gameObject.tag = "Host";
+        //this.enabled = false;
+    }
+
+    
 }

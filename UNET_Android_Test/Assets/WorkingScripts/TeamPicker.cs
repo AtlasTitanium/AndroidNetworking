@@ -8,6 +8,7 @@ public class TeamPicker : NetworkBehaviour {
 	private PlayerController playerController;
 	private NetworkManager networkManager;
 	public GUIStyle customButton;
+	public HostInfo theHost;
 
 	void Start(){
 		networkManager = NetworkManager.singleton;
@@ -24,6 +25,10 @@ public class TeamPicker : NetworkBehaviour {
 			this.enabled = false;
             return;
         } 
+
+		if(theHost == null){
+			theHost = GameObject.FindGameObjectWithTag("Host").GetComponent<HostInfo>();
+		}
 	}
 
 	void OnGUI(){
@@ -38,6 +43,7 @@ public class TeamPicker : NetworkBehaviour {
 			playerController.currentTeam = Team.Team1;
 
 			playerController.gameObject.GetComponent<LeaveRoom>().enabled = true;
+			theHost.amountTeam1.Add(this.gameObject);
 			this.enabled = false;
         }
 		if (GUI.Button(new Rect(0, Screen.height/4, Screen.width, Screen.height/4), "Team 2", customButton)){
@@ -46,6 +52,7 @@ public class TeamPicker : NetworkBehaviour {
 			playerController.currentTeam = Team.Team2;
 
 			playerController.gameObject.GetComponent<LeaveRoom>().enabled = true;
+			theHost.amountTeam2.Add(this.gameObject);
 			this.enabled = false;
         }
 		if (GUI.Button(new Rect(0, Screen.height/2, Screen.width, Screen.height/4), "Team 3", customButton)){
@@ -54,6 +61,7 @@ public class TeamPicker : NetworkBehaviour {
 			playerController.currentTeam = Team.Team3;
 
 			playerController.gameObject.GetComponent<LeaveRoom>().enabled = true;
+			theHost.amountTeam3.Add(this.gameObject);
 			this.enabled = false;
         }
 		if (GUI.Button(new Rect(0, Screen.height-(Screen.height/4), Screen.width, Screen.height/4), "Team 4", customButton)){
@@ -62,6 +70,7 @@ public class TeamPicker : NetworkBehaviour {
 			playerController.currentTeam = Team.Team4;
 
 			playerController.gameObject.GetComponent<LeaveRoom>().enabled = true;
+			theHost.amountTeam4.Add(this.gameObject);
 			this.enabled = false;
         }
 	}

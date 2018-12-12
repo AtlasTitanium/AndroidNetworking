@@ -226,6 +226,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f62e0afedaeae949b6d6dfc19b4480a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentTeam: 0
 --- !u!114 &114555583767607266
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -304,13 +305,14 @@ MonoBehaviour:
     m_FixedHeight: 0
     m_StretchWidth: 1
     m_StretchHeight: 0
+  theHost: {fileID: 0}
 --- !u!114 &114690291496633928
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1797498732308806}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7f377ddae63443245980e8cff6c5c9a5, type: 3}
   m_Name: 
@@ -321,6 +323,10 @@ MonoBehaviour:
   Team2_Texture: {fileID: 2800000, guid: a0777dea80130c048a8f945ab96d7ab9, type: 3}
   Team3_Texture: {fileID: 2800000, guid: 962fc443636f33844a92086f7825d4ce, type: 3}
   Team4_Texture: {fileID: 2800000, guid: 16dadc264878aa64c9dd987ad1c27fdd, type: 3}
+  amountTeam1: []
+  amountTeam2: []
+  amountTeam3: []
+  amountTeam4: []
 --- !u!135 &135238194680352214
 SphereCollider:
   m_ObjectHideFlags: 1
