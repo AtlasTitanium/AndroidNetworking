@@ -18,16 +18,28 @@ public class HostInfo : NetworkBehaviour {
     GUIStyle titleStyle = new GUIStyle();
 	GUIStyle style = new GUIStyle();
 
+	void Start(){
+		if(!isServer){
+			this.enabled = false;
+			return;
+		}
+		if (!isLocalPlayer)
+        {
+			this.enabled = false;
+            return;
+        } 
+		if(!localPlayerAuthority){
+			this.enabled = false;
+			return;
+		}
+	}
+
 	void Update () {
         titleStyle.alignment = TextAnchor.MiddleCenter;
 		titleStyle.fontSize = Screen.height/12;
 
 		style.alignment = TextAnchor.MiddleLeft;
 		style.fontSize = Screen.height/24;
-
-		for(int i = 0; i < amountTeam1.Count; i++){
-
-		}
 	}
 
 	void OnGUI(){

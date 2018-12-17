@@ -28,6 +28,8 @@ public class TeamPicker : NetworkBehaviour {
 
 		if(theHost == null){
 			theHost = GameObject.FindGameObjectWithTag("Host").GetComponent<HostInfo>();
+		} else {
+			Debug.Log("noHostFound");
 		}
 	}
 
@@ -43,7 +45,7 @@ public class TeamPicker : NetworkBehaviour {
 			playerController.currentTeam = Team.Team1;
 
 			playerController.gameObject.GetComponent<LeaveRoom>().enabled = true;
-			theHost.amountTeam1.Add(this.gameObject);
+			CmdAddPlayer(1, this.gameObject);
 			this.enabled = false;
         }
 		if (GUI.Button(new Rect(0, Screen.height/4, Screen.width, Screen.height/4), "Team 2", customButton)){
@@ -52,7 +54,7 @@ public class TeamPicker : NetworkBehaviour {
 			playerController.currentTeam = Team.Team2;
 
 			playerController.gameObject.GetComponent<LeaveRoom>().enabled = true;
-			theHost.amountTeam2.Add(this.gameObject);
+			CmdAddPlayer(2, this.gameObject);
 			this.enabled = false;
         }
 		if (GUI.Button(new Rect(0, Screen.height/2, Screen.width, Screen.height/4), "Team 3", customButton)){
@@ -61,7 +63,7 @@ public class TeamPicker : NetworkBehaviour {
 			playerController.currentTeam = Team.Team3;
 
 			playerController.gameObject.GetComponent<LeaveRoom>().enabled = true;
-			theHost.amountTeam3.Add(this.gameObject);
+			CmdAddPlayer(3, this.gameObject);
 			this.enabled = false;
         }
 		if (GUI.Button(new Rect(0, Screen.height-(Screen.height/4), Screen.width, Screen.height/4), "Team 4", customButton)){
@@ -70,8 +72,33 @@ public class TeamPicker : NetworkBehaviour {
 			playerController.currentTeam = Team.Team4;
 
 			playerController.gameObject.GetComponent<LeaveRoom>().enabled = true;
-			theHost.amountTeam4.Add(this.gameObject);
+			CmdAddPlayer(4, this.gameObject);
 			this.enabled = false;
         }
+	}
+
+	[Command]
+	public void CmdAddPlayer(int teamNumber, GameObject player){
+		switch(teamNumber){
+			case 1:
+				Debug.Log("addToTeam1");
+				theHost.amountTeam1.Add(player);
+				break;
+			case 2:
+				Debug.Log("addToTeam2");
+				theHost.amountTeam2.Add(player);
+				break;
+			case 3:
+				Debug.Log("addToTeam3");
+				theHost.amountTeam3.Add(player);
+				break;
+			case 4:
+				Debug.Log("addToTeam4");
+				theHost.amountTeam4.Add(player);
+				break;
+			default:
+				Debug.Log("Error Boi");
+				break;
+		}
 	}
 }

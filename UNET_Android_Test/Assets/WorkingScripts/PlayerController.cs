@@ -22,6 +22,8 @@ public class PlayerController : NetworkBehaviour {
             return;
         } else {
             RpcCreateHost();
+            this.gameObject.GetComponent<HostInfo>().enabled = true;
+            this.gameObject.name = "Host";
             return;
         }
 	}
@@ -46,15 +48,13 @@ public class PlayerController : NetworkBehaviour {
 
     [ClientRpc]
     public void RpcCreatePlayer(){
+        Debug.Log(NetworkServer.connections.Count);
         playerNumber = NetworkServer.connections.Count - 1;
         this.gameObject.name = playerNumber.ToString();
     }
 
     [ClientRpc]
     public void RpcCreateHost(){
-        this.gameObject.GetComponent<HostInfo>().enabled = true;
-        playerNumber = 0;
-        this.gameObject.name = "Host";
         this.gameObject.tag = "Host";
         //this.enabled = false;
     }
