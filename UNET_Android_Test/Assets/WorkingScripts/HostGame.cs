@@ -8,6 +8,10 @@ public class HostGame : MonoBehaviour {
 	private string roomName;
 	private NetworkManager networkManager;
 	public GUIStyle customButton;
+	public Texture2D Background;
+	public Texture2D Button;
+	public Texture2D inpField;
+	public Font currentFont;
 
 	void Start(){
 		networkManager = NetworkManager.singleton;
@@ -27,7 +31,12 @@ public class HostGame : MonoBehaviour {
 	}
 
 	void OnGUI(){
+		GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), Background, ScaleMode.StretchToFill, true, 10.0F);
 		customButton = new GUIStyle("button");
+		customButton.normal.background = Button;
+		customButton.hover.background = Button;
+		customButton.fontSize = Screen.height/14;
+		customButton.font = currentFont;
 
 		//Host game Button
 		customButton.fontSize = Screen.height/12;

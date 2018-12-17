@@ -18,7 +18,7 @@ public class PlayerController : NetworkBehaviour {
         ServerActive = isServer;
 
         if(!isServer){
-            CmdCreatePlayer();
+            this.gameObject.name = "Client";
             return;
         } else {
             RpcCreateHost();
@@ -30,33 +30,18 @@ public class PlayerController : NetworkBehaviour {
 
 	[Command]
     public void CmdChooseTeam(Color color){
-		//Debug.Log("In the CMD: " + this.gameObject);
         RpcChangeColor(color);
     }
 
 	[ClientRpc]
     public void RpcChangeColor(Color color){
-		//Debug.Log("In the RPC: " + this.gameObject);
         playerColor = color;
         GetComponent<MeshRenderer>().material.color = color;
-    }
-
-    [Command]
-    public void CmdCreatePlayer(){
-        RpcCreatePlayer();
-    }
-
-    [ClientRpc]
-    public void RpcCreatePlayer(){
-        Debug.Log(NetworkServer.connections.Count);
-        playerNumber = NetworkServer.connections.Count - 1;
-        this.gameObject.name = playerNumber.ToString();
     }
 
     [ClientRpc]
     public void RpcCreateHost(){
         this.gameObject.tag = "Host";
-        //this.enabled = false;
     }
 
     

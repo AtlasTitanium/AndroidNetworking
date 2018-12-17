@@ -16,20 +16,18 @@ public class TeamPicker : NetworkBehaviour {
 	}
 
 	void Update () {
-		if(isServer){
-			this.enabled = false;
-			return;
-		}
 		if (!isLocalPlayer)
         {
 			this.enabled = false;
             return;
         } 
+		if(isServer){
+			this.enabled = false;
+			return;
+		}
 
 		if(theHost == null){
-			theHost = GameObject.FindGameObjectWithTag("Host").GetComponent<HostInfo>();
-		} else {
-			Debug.Log("noHostFound");
+			CmdFindHost();
 		}
 	}
 
@@ -100,5 +98,15 @@ public class TeamPicker : NetworkBehaviour {
 				Debug.Log("Error Boi");
 				break;
 		}
+	}
+
+	[Command]
+	public void CmdFindHost(){
+		RpcFindHost();
+	}
+
+	[ClientRpc]
+	public void RpcFindHost(){
+		theHost = GameObject.FindGameObjectWithTag("Host").GetComponent<HostInfo>();
 	}
 }
