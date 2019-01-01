@@ -17,6 +17,7 @@ public class JoinGame : MonoBehaviour {
 		if(networkManager.matchMaker == null){
 			networkManager.StartMatchMaker();
 		}
+		roomName = "/room name/";
 	}
 
 	void OnGUI(){
@@ -41,13 +42,15 @@ public class JoinGame : MonoBehaviour {
 		customInputField.normal.background = inpField;
 		customInputField.hover.background = inpField;
 		customInputField.fontSize = Screen.height/24;
+		customInputField.alignment = TextAnchor.MiddleCenter;
 		customInputField.font = currentFont;
+		customInputField.normal.textColor = Color.black;
 		//roomName = GUI.TextField(new Rect(0, 0, Screen.width, Screen.height/12), roomName, customButton);
 		roomName = GUI.TextField(new Rect(0, Screen.height-((Screen.height/6)*1.5f), Screen.width, Screen.height/12), roomName, customInputField);
 	}
 
 	public void JoinRoom (){
-		if(roomName != "" && roomName != null){
+		if(roomName != "" && roomName != null && roomName != "/room name/"){
 			networkManager.matchMaker.ListMatches(0, 10, roomName, true, 0, 0, OnMatchList);
 		}
 	}
