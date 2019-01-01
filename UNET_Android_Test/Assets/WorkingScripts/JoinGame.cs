@@ -38,7 +38,8 @@ public class JoinGame : MonoBehaviour {
 		}
 
 		//InputField
-		customInputField = new GUIStyle("input field");
+		customInputField = new GUIStyle("");
+		customInputField.name = "room name";
 		customInputField.normal.background = inpField;
 		customInputField.hover.background = inpField;
 		customInputField.fontSize = Screen.height/24;

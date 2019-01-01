@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public class ContrastPuzzle2 : MonoBehaviour {
-	private PlayerInfo pInfo;
+using UnityEngine.Networking;
+public class ContrastPuzzle1 : NetworkBehaviour {
+	public PlayerController pController;
 	public Button startButton;
 	public GameObject[] colors;
 	private int finalScore;
@@ -11,29 +12,19 @@ public class ContrastPuzzle2 : MonoBehaviour {
 	public Texture2D Color1;
 	public Texture2D Color2;
 	public Texture2D Color3;
-	public Texture2D Color4;
-	public Texture2D Color5;
 	public Texture2D fout;
 	private bool wrong = false;
-	private bool _Color1, _Color2, _Color3, _Color4, _Color5;
+	private bool _Color1, _Color2, _Color3;
 	private GUIStyle foutStyle;
 	public Font Dyslectic_font;
 	private bool on = false;
 	private bool won = false;
 	void Start(){
-		pInfo = GameObject.Find("Player").GetComponent<PlayerInfo>();
-		startButton.onClick.AddListener(StartChallenge);
-
 		foreach(GameObject color in colors){
 			color.SetActive(false);
 		}
 	}
-	public void Color5Right(){
-		_Color5 = true;
-	}
-	public void Color4Right(){
-		_Color4 = true;
-	}
+
 	public void Color3Right(){
 		_Color3 = true;
 	}
@@ -50,10 +41,23 @@ public class ContrastPuzzle2 : MonoBehaviour {
 	}
 
 	void Update(){
+		if(isServer){
+            this.enabled = false;
+            return;
+        }
+		if(pController != null){
+			//Debug.Log("found player");
+		} else{
+			pController = GameObject.Find("Client").GetComponent<PlayerController>();
+			//Debug.Log("player not found");
+			return;
+		}
+		startButton.onClick.AddListener(StartChallenge);
+		
 		if(finalScore <= 20){
 			finalScore = 20;
 		}
-		if(_Color3 && _Color1 && _Color2 && _Color4 && _Color5){
+		if(_Color3 && _Color1 && _Color2){
 			StopAllCoroutines();
 			won = true;
 		}
@@ -73,11 +77,9 @@ public class ContrastPuzzle2 : MonoBehaviour {
 					foreach(GameObject color in colors){
 						color.SetActive(false);
 					}
-					pInfo.GainScore(finalScore);
-					pInfo.GetComponent<TeamScore>().enabled = true;
-					pInfo.puzzle2 = true;
-					this.enabled = false;
+					pController.CmdGainScore(finalScore, 1);
 					won = false;
+					this.enabled = false;
 				}
 			} else {
 				foutStyle.fontSize = Screen.height/8;
@@ -88,7 +90,6 @@ public class ContrastPuzzle2 : MonoBehaviour {
 					wrong = false;
 				}
 			}
-
 			//Color3
 			if(_Color3){
 				GUI.DrawTexture(new Rect((Screen.width - Screen.width/8), 0, Screen.width/8, Screen.height/10), Color3, ScaleMode.StretchToFill, true, 10.0F);
@@ -110,20 +111,6 @@ public class ContrastPuzzle2 : MonoBehaviour {
 			} else {
 				GUI.DrawTexture(new Rect((Screen.width - Screen.width/8), (Screen.height/10)*2, Screen.width/8, Screen.height/10), white, ScaleMode.StretchToFill, true, 10.0F);
 			}
-
-			//Color4
-			if(_Color4){
-				GUI.DrawTexture(new Rect((Screen.width - Screen.width/8), (Screen.height/10)*3, Screen.width/8, Screen.height/10), Color4, ScaleMode.StretchToFill, true, 10.0F);
-			} else {
-				GUI.DrawTexture(new Rect((Screen.width - Screen.width/8), (Screen.height/10)*3, Screen.width/8, Screen.height/10), white, ScaleMode.StretchToFill, true, 10.0F);
-			}
-
-			//Color5
-			if(_Color5){
-				GUI.DrawTexture(new Rect((Screen.width - Screen.width/8), (Screen.height/10)*4, Screen.width/8, Screen.height/10), Color5, ScaleMode.StretchToFill, true, 10.0F);
-			} else {
-				GUI.DrawTexture(new Rect((Screen.width - Screen.width/8), (Screen.height/10)*4, Screen.width/8, Screen.height/10), white, ScaleMode.StretchToFill, true, 10.0F);
-			}
 		}
 		
 	}
@@ -135,7 +122,6 @@ public class ContrastPuzzle2 : MonoBehaviour {
 		}
 		on = true;
 		StartCoroutine(ScoreTimer());
-		pInfo.GetComponent<TeamScore>().enabled = false;
 	}
 
 	IEnumerator ScoreTimer(){

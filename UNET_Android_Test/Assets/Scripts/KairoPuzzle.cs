@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-public class KairoPuzzle : MonoBehaviour {
+using UnityEngine.Networking;
+public class KairoPuzzle : NetworkBehaviour {
 
-	private PlayerInfo pInfo;
+	private PlayerController pController;
 	public GameObject brokenPuzzle;
 	public Button startPuzzleButton;
 	public GameObject[] puzzlePieces;
@@ -17,8 +18,10 @@ public class KairoPuzzle : MonoBehaviour {
 	private bool won = false;
 
 	void OnEnable(){
-		pInfo = GameObject.Find("Player").GetComponent<PlayerInfo>();
-		startPuzzleButton.gameObject.SetActive(!pInfo.puzzle3);
+		if(isServer){
+            this.enabled = false;
+            return;
+        }
 	}
 	void Start(){	
 		startPuzzleButton.onClick.AddListener(TaskOnClick);	
@@ -28,7 +31,20 @@ public class KairoPuzzle : MonoBehaviour {
 	}
 
 	void Update(){
-		brokenPuzzle.SetActive(!pInfo.puzzle3);
+		if(isServer){
+            this.enabled = false;
+            return;
+        }
+		if(pController != null){
+			Debug.Log("found player");
+		} else{
+			pController = GameObject.Find("Client").GetComponent<PlayerController>();
+			Debug.Log("player not found");
+			return;
+		}
+		startPuzzleButton.gameObject.SetActive(!pController.puzzle3);
+
+		brokenPuzzle.SetActive(!pController.puzzle3);
 
 		if(!startPuzzleButton.gameObject.active){
 			foreach(GameObject piece in puzzlePieces){
@@ -41,7 +57,7 @@ public class KairoPuzzle : MonoBehaviour {
 
 				if(countToWin >= puzzlePieces.Length){
 					StopAllCoroutines();
-					pInfo.puzzle3 = true;
+					pController.puzzle3 = true;
 					won = true;
 				}
 			}
@@ -58,8 +74,7 @@ public class KairoPuzzle : MonoBehaviour {
 			end.fontSize = Screen.height/17;
 			string score = "Goed gedaan\nJe wint:\n" + finalScore + " Punten";
 			if(GUI.Button(new Rect(Screen.width/8,Screen.height/4,Screen.width/1.25f,Screen.height/2), score, end)){
-				pInfo.GetComponent<TeamScore>().enabled = true;
-				pInfo.GainScore(finalScore);
+				pController.CmdGainScore(finalScore,3);
 				this.enabled = false;
 			}
 		} 
@@ -69,7 +84,6 @@ public class KairoPuzzle : MonoBehaviour {
 		foreach(GameObject piece in puzzlePieces){
 			piece.GetComponent<Draggable>().enabled = true;
 		}
-		pInfo.GetComponent<TeamScore>().enabled = false;
 		StartCoroutine(CountScore());
 	}
 

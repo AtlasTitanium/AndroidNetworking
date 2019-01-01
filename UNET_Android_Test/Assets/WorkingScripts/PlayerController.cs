@@ -5,11 +5,21 @@ using UnityEngine.Networking;
 
 public enum Team {NoTeam, Team1, Team2, Team3, Team4}
 public class PlayerController : NetworkBehaviour {
-    public Team currentTeam;
+    [SyncVar]
+    public Team currentTeam = Team.NoTeam;
     private Color playerColor;
-    private int playerNumber;
+    public HostInfo theHost;
+    [SyncVar]
+    public int personalScore;
     [SyncVar]
     public bool ServerActive = false;
+
+    [SyncVar]	
+	public bool puzzle1 = false;
+	[SyncVar]	
+	public bool puzzle2 = false;
+	[SyncVar]	
+	public bool puzzle3 = false;
 
 	void Update () {
         if(!isLocalPlayer){
@@ -19,6 +29,7 @@ public class PlayerController : NetworkBehaviour {
 
         if(!isServer){
             this.gameObject.name = "Client";
+            CmdFindHost();
             return;
         } else {
             RpcCreateHost();
@@ -28,15 +39,37 @@ public class PlayerController : NetworkBehaviour {
         }
 	}
 
-	[Command]
-    public void CmdChooseTeam(Color color){
-        RpcChangeColor(color);
-    }
+    [Command]
+    public void CmdGainScore(int score, int puzzleNumber){
+        personalScore += score;
+        switch(currentTeam){
+            case Team.Team1:
+            theHost.team1Score += score;
+            break;
 
-	[ClientRpc]
-    public void RpcChangeColor(Color color){
-        playerColor = color;
-        GetComponent<MeshRenderer>().material.color = color;
+            case Team.Team2:
+            theHost.team2Score += score;
+            break;
+
+            case Team.Team3:
+            theHost.team3Score += score;
+            break;
+
+            case Team.Team4:
+            theHost.team4Score += score;
+            break;
+        }
+        switch(puzzleNumber){
+            case 1:
+            puzzle1 = true;
+            break;
+            case 2:
+            puzzle2 = true;
+            break;
+            case 3:
+            puzzle3 = true;
+            break;
+        }
     }
 
     [ClientRpc]
@@ -44,5 +77,13 @@ public class PlayerController : NetworkBehaviour {
         this.gameObject.tag = "Host";
     }
 
-    
+    [Command]
+	public void CmdFindHost(){
+		RpcFindHost();
+	}
+
+	[ClientRpc]
+	public void RpcFindHost(){
+		theHost = GameObject.FindGameObjectWithTag("Host").GetComponent<HostInfo>();
+	}
 }

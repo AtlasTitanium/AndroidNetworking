@@ -8,6 +8,7 @@ public class HostGame : MonoBehaviour {
 	private string roomName;
 	private NetworkManager networkManager;
 	public GUIStyle customButton;
+	public GUIStyle customInputField;
 	public Texture2D Background;
 	public Texture2D Button;
 	public Texture2D inpField;
@@ -18,6 +19,8 @@ public class HostGame : MonoBehaviour {
 		if(networkManager.matchMaker == null){
 			networkManager.StartMatchMaker();
 		}
+
+		roomName = "/room name/";
 	}
 
 	public void SetRoomName(string _name){
@@ -25,7 +28,7 @@ public class HostGame : MonoBehaviour {
 	}
 
 	public void CreateRoom(){
-		if(roomName != "" && roomName != null){
+		if(roomName != "" && roomName != null && roomName != "/room name/"){
 			networkManager.matchMaker.ListMatches(0, 10, roomName, true, 0, 0, OnMatchList);
 		}
 	}
@@ -45,8 +48,14 @@ public class HostGame : MonoBehaviour {
 		}
 
 		//InputField
-		customButton.fontSize = Screen.height/24;
-		roomName = GUI.TextField(new Rect(0, Screen.height-((Screen.height/6)*1.5f), Screen.width, Screen.height/12), roomName, customButton);
+		customInputField = new GUIStyle("");
+		customInputField.normal.background = inpField;
+		customInputField.hover.background = inpField;
+		customInputField.fontSize = Screen.height/24;
+		customInputField.alignment = TextAnchor.MiddleCenter;
+		customInputField.font = currentFont;
+		customInputField.normal.textColor = Color.black;
+		roomName = GUI.TextField(new Rect(0, Screen.height-((Screen.height/6)*1.5f), Screen.width, Screen.height/12), roomName, customInputField);
 	}
 
 	public void OnMatchList(bool success, string extendedInfo, List<MatchInfoSnapshot> matches)
