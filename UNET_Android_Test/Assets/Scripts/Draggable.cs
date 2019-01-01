@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-public class Draggable : MonoBehaviour, IDragHandler, IEndDragHandler {
+using UnityEngine.Networking;
+public class Draggable : NetworkBehaviour, IDragHandler, IEndDragHandler {
 	private Vector3 hitPoint;
 	public LayerMask layerMask;
 	public GameObject Child;

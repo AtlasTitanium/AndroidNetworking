@@ -16,14 +16,7 @@ public class KairoPuzzle : NetworkBehaviour {
 	public Font Dyslectic_font;
 	public Texture2D winImage;
 	private bool won = false;
-
-	void OnEnable(){
-		if(isServer){
-            this.enabled = false;
-            return;
-        }
-	}
-	void Start(){	
+	void Start(){
 		startPuzzleButton.onClick.AddListener(TaskOnClick);	
 		foreach(GameObject piece in puzzlePieces){
 			piece.GetComponent<Draggable>().enabled = false;
@@ -42,11 +35,11 @@ public class KairoPuzzle : NetworkBehaviour {
 			Debug.Log("player not found");
 			return;
 		}
-		startPuzzleButton.gameObject.SetActive(!pController.puzzle3);
 
 		brokenPuzzle.SetActive(!pController.puzzle3);
 
 		if(!startPuzzleButton.gameObject.active){
+			Debug.Log("puzzle running");
 			foreach(GameObject piece in puzzlePieces){
 				if(piece.GetComponent<Draggable>().isRight){
 					countToWin++;
@@ -55,10 +48,12 @@ public class KairoPuzzle : NetworkBehaviour {
 					break;
 				}
 
+				Debug.Log(countToWin);
 				if(countToWin >= puzzlePieces.Length){
 					StopAllCoroutines();
 					pController.puzzle3 = true;
 					won = true;
+					countToWin = 0;
 				}
 			}
 		}
@@ -79,11 +74,15 @@ public class KairoPuzzle : NetworkBehaviour {
 			}
 		} 
 	}
-	private void TaskOnClick(){
-		startPuzzleButton.gameObject.SetActive(false);
+	public void TaskOnClick(){
 		foreach(GameObject piece in puzzlePieces){
 			piece.GetComponent<Draggable>().enabled = true;
 		}
+		while(startPuzzleButton.gameObject.active){
+			Debug.Log("still active");
+			startPuzzleButton.gameObject.SetActive(false);
+		}
+		Debug.Log("start puzzle");
 		StartCoroutine(CountScore());
 	}
 
