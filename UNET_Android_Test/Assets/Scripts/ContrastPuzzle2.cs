@@ -53,10 +53,10 @@ public class ContrastPuzzle2 : NetworkBehaviour {
             return;
         }
 		if(pController != null){
-			Debug.Log("found player");
+			//Debug.Log("found player");
 		} else{
 			pController = GameObject.Find("Client").GetComponent<PlayerController>();
-			Debug.Log("player not found");
+			//Debug.Log("player not found");
 			return;
 		}
 		startButton.onClick.AddListener(StartChallenge);

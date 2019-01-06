@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 114909303702612124}
   - component: {fileID: 114505586440596736}
   - component: {fileID: 114781370004997450}
+  - component: {fileID: 114571593535342100}
   - component: {fileID: 114206491768764014}
   m_Layer: 5
   m_Name: PlayerPrefab
@@ -42,6 +43,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f377ddae63443245980e8cff6c5c9a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  latitudeLocation: 0
+  longitudeLocation: 0
+  LocationTexture: {fileID: 2800000, guid: 8d558b681bbb820429dffc4835c9b288, type: 3}
+  mapTexture: {fileID: 2800000, guid: 716e829a0a4cfd54a91062c02dec52d7, type: 3}
+  minLatitude: 52.25055
+  maxLatitude: 52.25263
+  minLongitude: 5.253318
+  maxLongitude: 5.255185
   BackgroundTexture: {fileID: 2800000, guid: 1694b3fdcddd71b47833edb626910a84, type: 3}
   TopTexture: {fileID: 10305, guid: 0000000000000000f000000000000000, type: 0}
   Team1_Texture: {fileID: 2800000, guid: 4568ffc355a59f94d908cecfc286d73c, type: 3}
@@ -52,6 +61,10 @@ MonoBehaviour:
   amountTeam2: []
   amountTeam3: []
   amountTeam4: []
+  team1Score: 0
+  team2Score: 0
+  team3Score: 0
+  team4Score: 0
 --- !u!114 &114442354102870758
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -133,6 +146,10 @@ MonoBehaviour:
   Backpack: {fileID: 2800000, guid: a349db07322f37b4db1f37dfa8a2073d, type: 3}
   Photo: {fileID: 2800000, guid: e82a2d48e2c627d48b74dce53e9dcf4b, type: 3}
   Map: {fileID: 2800000, guid: 0506269ff152630408329d799c0aa6ed, type: 3}
+  team1Texture: {fileID: 2800000, guid: 8bfd473b310c64c418c55b0b6f8c40b5, type: 3}
+  team2Texture: {fileID: 2800000, guid: 5d95ee1cede6b2b489472cb8a573f52c, type: 3}
+  team3Texture: {fileID: 2800000, guid: 32983250036761348beaaa75a749681e, type: 3}
+  team4Texture: {fileID: 2800000, guid: d2f74f51138aa9e4b877b87d8dd9aecf, type: 3}
   Background: {fileID: 2800000, guid: c987c015901a15149bb681640abe0e19, type: 3}
 --- !u!114 &114505586440596736
 MonoBehaviour:
@@ -146,7 +163,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentTeam: 0
+  theHost: {fileID: 0}
+  personalScore: 0
   ServerActive: 0
+  puzzle1: 0
+  puzzle2: 0
+  puzzle3: 0
+--- !u!114 &114571593535342100
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1678186406559282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51919b7e12c88a3408339b37aaad4f6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  latitudeLocation: 0
+  longitudeLocation: 0
 --- !u!114 &114781370004997450
 MonoBehaviour:
   m_ObjectHideFlags: 1

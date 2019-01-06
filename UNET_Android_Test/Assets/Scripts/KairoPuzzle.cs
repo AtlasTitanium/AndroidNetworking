@@ -29,10 +29,10 @@ public class KairoPuzzle : NetworkBehaviour {
             return;
         }
 		if(pController != null){
-			Debug.Log("found player");
+			//Debug.Log("found player");
 		} else{
 			pController = GameObject.Find("Client").GetComponent<PlayerController>();
-			Debug.Log("player not found");
+			//Debug.Log("player not found");
 			return;
 		}
 
@@ -79,10 +79,10 @@ public class KairoPuzzle : NetworkBehaviour {
 			piece.GetComponent<Draggable>().enabled = true;
 		}
 		while(startPuzzleButton.gameObject.active){
-			Debug.Log("still active");
+			//Debug.Log("still active");
 			startPuzzleButton.gameObject.SetActive(false);
 		}
-		Debug.Log("start puzzle");
+		//Debug.Log("start puzzle");
 		StartCoroutine(CountScore());
 	}
 

@@ -86,4 +86,9 @@ public class PlayerController : NetworkBehaviour {
 	public void RpcFindHost(){
 		theHost = GameObject.FindGameObjectWithTag("Host").GetComponent<HostInfo>();
 	}
+
+    public override void OnDeserialize(NetworkReader reader, bool initialState)
+    {
+        base.OnDeserialize(reader, initialState);
+    }
 }
