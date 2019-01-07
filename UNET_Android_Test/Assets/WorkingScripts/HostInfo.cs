@@ -254,7 +254,7 @@ public class HostInfo : NetworkBehaviour {
 				GUI.Box(new Rect(0, ((Screen.height/10) + BlockHeight) + _BlockTitleHeight, Screen.width, _BlockTitleHeight), team2Info, style);
 
 				if(amountTeam2.Count != 0){
-					if(GUI.Button(new Rect(Screen.width-Screen.width/10, Screen.height/10, Screen.width/10, _BlockTitleHeight), LocationTexture)){
+					if(GUI.Button(new Rect(Screen.width-Screen.width/10, ((Screen.height/10) + BlockHeight), Screen.width/10, _BlockTitleHeight), LocationTexture)){
 						localTrack = LocationTrack.Team2;
 					}
 				}
@@ -265,7 +265,7 @@ public class HostInfo : NetworkBehaviour {
 				GUI.Box(new Rect(0, ((Screen.height/10) + (BlockHeight * 2)) + _BlockTitleHeight, Screen.width, _BlockTitleHeight), team3Info, style);
 
 				if(amountTeam3.Count != 0){
-					if(GUI.Button(new Rect(Screen.width-Screen.width/10, Screen.height/10, Screen.width/10, _BlockTitleHeight), LocationTexture)){
+					if(GUI.Button(new Rect(Screen.width-Screen.width/10, ((Screen.height/10) + (BlockHeight * 2)), Screen.width/10, _BlockTitleHeight), LocationTexture)){
 						localTrack = LocationTrack.Team3;
 					}
 				}
@@ -276,7 +276,7 @@ public class HostInfo : NetworkBehaviour {
 				GUI.Box(new Rect(0, (Screen.height - BlockHeight) + _BlockTitleHeight, Screen.width, _BlockTitleHeight), team4Info, style);
 
 				if(amountTeam4.Count != 0){
-					if(GUI.Button(new Rect(Screen.width-Screen.width/10, Screen.height/10, Screen.width/10, _BlockTitleHeight), LocationTexture)){
+					if(GUI.Button(new Rect(Screen.width-Screen.width/10, (Screen.height - BlockHeight), Screen.width/10, _BlockTitleHeight), LocationTexture)){
 						localTrack = LocationTrack.Team4;
 					}
 				}
