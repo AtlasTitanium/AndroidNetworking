@@ -21,15 +21,11 @@ public class PlayerController : NetworkBehaviour {
 	[SyncVar]	
 	public bool puzzle3 = false;
 
-	void Update () {
-        if(!isLocalPlayer){
-            return;
-        }
-        ServerActive = isServer;
-
+    void Start()
+    {
         if(!isServer){
             this.gameObject.name = "Client";
-            CmdFindHost();
+            CmdFindHost(); 
             return;
         } else {
             RpcCreateHost();
@@ -37,6 +33,13 @@ public class PlayerController : NetworkBehaviour {
             this.gameObject.name = "Host";
             return;
         }
+    }
+
+	void Update () {
+        if(!isLocalPlayer){
+            return;
+        }
+        ServerActive = isServer;
 	}
 
     [Command]
@@ -90,5 +93,50 @@ public class PlayerController : NetworkBehaviour {
     public override void OnDeserialize(NetworkReader reader, bool initialState)
     {
         base.OnDeserialize(reader, initialState);
+    }
+
+    void OnApplicationPauze(){
+        Debug.Log("oofo");
+        CmdSendMessage("pauze");
+        if(!isServer){
+            CmdExitPlayer();
+        }
+    }
+
+    void OnApplicationQuit(){
+        Debug.Log("oof");
+        CmdSendMessage("player quit");
+        CmdHostInform();
+    }
+
+    [Command]
+    void CmdExitPlayer(){
+        switch(currentTeam){
+            case Team.Team1:
+            theHost.amountTeam1.Remove(this.gameObject);
+            break;
+
+            case Team.Team2:
+            theHost.amountTeam2.Remove(this.gameObject);
+            break;
+
+            case Team.Team3:
+            theHost.amountTeam3.Remove(this.gameObject);
+            break;
+
+            case Team.Team4:
+            theHost.amountTeam4.Remove(this.gameObject);
+            break;
+        }
+    }
+
+    [Command]
+    void CmdSendMessage(string str){
+        Debug.Log(str);
+    }
+
+    [Command]
+    void CmdHostInform(){
+        theHost.RpcInform();
     }
 }

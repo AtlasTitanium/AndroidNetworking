@@ -44,7 +44,6 @@ public class HostInfo : NetworkBehaviour {
 	private LocationTrack localTrack = LocationTrack.NoTrack;
 	
 	private int currentPlayer = 0;
-	public bool loopActive = false;
 
 	void Start(){
 		if(!isServer){
@@ -70,7 +69,6 @@ public class HostInfo : NetworkBehaviour {
 		style.fontSize = Screen.height/24;
 
 		button.fontSize = Screen.height/10;
-		Debug.Log("loopactive is " + loopActive);
 
 		// if(amountTeam1.Count == 0){
 		// 	localTrack = LocationTrack.NoTrack;
@@ -87,6 +85,13 @@ public class HostInfo : NetworkBehaviour {
 	}
 
 	void OnGUI(){
+		// //show numbers
+		// GUIStyle style2 = new GUIStyle();
+		// style2.fontSize = Screen.height/16;
+		// GUI.Label(new Rect(Screen.width/16, Screen.height/100, Screen.width, Screen.height/8), latitudeLocation.ToString(),style2);
+		// GUI.Label(new Rect(Screen.width/16, Screen.height/16, Screen.width, Screen.height/8), longitudeLocation.ToString(),style2);
+		// //end numbers
+		
 		//Location tracking---------------------------------------------------
 		switch(localTrack){
 			//TEAM 1
@@ -110,21 +115,8 @@ public class HostInfo : NetworkBehaviour {
 			GUI.DrawTexture(new Rect(createLongitude-10,createLatitude-10,20,20), LocationTexture);
 
 			if(GUI.Button(new Rect(0,0, Screen.width, Screen.height/10), "Leave", button)){
-				//RpcUpdatePlayer(1, false);
 				localTrack = LocationTrack.NoTrack;
 			}
-
-			if(loopActive){
-				//RpcUpdatePlayer(1, true);
-				loopActive = false;
-			}
-
-			//show numbers
-			GUIStyle style2 = new GUIStyle();
-			style2.fontSize = Screen.height/16;
-			GUI.Label(new Rect(Screen.width/16, Screen.height/100, Screen.width, Screen.height/8), latitudeLocation.ToString(),style2);
-			GUI.Label(new Rect(Screen.width/16, Screen.height/16, Screen.width, Screen.height/8), longitudeLocation.ToString(),style2);
-			//end numbers
 			break;
 
 			//TEAM 2
@@ -148,13 +140,7 @@ public class HostInfo : NetworkBehaviour {
 			GUI.DrawTexture(new Rect(createLongitude2-10,createLatitude2-10,20,20), LocationTexture);
 
 			if(GUI.Button(new Rect(0,0, Screen.width, Screen.height/10), "Leave", button)){
-				//RpcUpdatePlayer(2, false);
 				localTrack = LocationTrack.NoTrack;
-			}
-
-			if(loopActive){
-				//RpcUpdatePlayer(2, true);
-				loopActive = false;
 			}
 			break;
 
@@ -179,13 +165,7 @@ public class HostInfo : NetworkBehaviour {
 			GUI.DrawTexture(new Rect(createLongitude3-10,createLatitude3-10,20,20), LocationTexture);
 
 			if(GUI.Button(new Rect(0,0, Screen.width, Screen.height/10), "Leave", button)){
-				//RpcUpdatePlayer(3, false);
 				localTrack = LocationTrack.NoTrack;
-			}
-
-			if(loopActive){
-				//RpcUpdatePlayer(3, true);
-				loopActive = false;
 			}
 			break;
 
@@ -211,20 +191,14 @@ public class HostInfo : NetworkBehaviour {
 			GUI.DrawTexture(new Rect(createLongitude4-10,createLatitude4-10,20,20), LocationTexture);
 
 			if(GUI.Button(new Rect(0,0, Screen.width, Screen.height/10), "Leave", button)){
-				//RpcUpdatePlayer(4, false);
 				localTrack = LocationTrack.NoTrack;
-			}
-
-			if(loopActive){
-				//RpcUpdatePlayer(4, true);
-				loopActive = false;
 			}
 			break;
 
 
 			//NORMAL------------------------------------------------------------------------
 			case LocationTrack.NoTrack:
-			loopActive = true;
+	
 			currentPlayer = 0;
 
 			//Background
@@ -325,6 +299,20 @@ public class HostInfo : NetworkBehaviour {
 				break;
 			}
 		}
+	}
+
+	void OnPlayerDisconnected(){
+		Debug.Log("player disconnected");
+	}
+
+	void OnDisconnectedFromServer(NetworkIdentity en){
+		Debug.Log(en);
+		Debug.Log("player's gone bro");
+	}
+
+	[ClientRpc]
+	public void RpcInform(){
+		Debug.Log("ye");
 	}
 }
 
