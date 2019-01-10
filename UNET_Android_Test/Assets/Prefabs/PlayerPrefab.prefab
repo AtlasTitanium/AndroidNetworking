@@ -76,6 +76,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d24fca01b1204a4d8c1b4d6f4dcec5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerState: 0
   customButton:
     m_Name: 
     m_Normal:
@@ -143,14 +144,109 @@ MonoBehaviour:
     m_FixedHeight: 0
     m_StretchWidth: 1
     m_StretchHeight: 0
+  styleButton:
+    m_Name: 
+    m_Normal:
+      m_Background: {fileID: 0}
+      m_ScaledBackgrounds: []
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_Hover:
+      m_Background: {fileID: 0}
+      m_ScaledBackgrounds: []
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_Active:
+      m_Background: {fileID: 0}
+      m_ScaledBackgrounds: []
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_Focused:
+      m_Background: {fileID: 0}
+      m_ScaledBackgrounds: []
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_OnNormal:
+      m_Background: {fileID: 0}
+      m_ScaledBackgrounds: []
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_OnHover:
+      m_Background: {fileID: 0}
+      m_ScaledBackgrounds: []
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_OnActive:
+      m_Background: {fileID: 0}
+      m_ScaledBackgrounds: []
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_OnFocused:
+      m_Background: {fileID: 0}
+      m_ScaledBackgrounds: []
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_Border:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    m_Margin:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    m_Padding:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    m_Overflow:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    m_Font: {fileID: 0}
+    m_FontSize: 0
+    m_FontStyle: 0
+    m_Alignment: 0
+    m_WordWrap: 0
+    m_RichText: 1
+    m_TextClipping: 0
+    m_ImagePosition: 0
+    m_ContentOffset: {x: 0, y: 0}
+    m_FixedWidth: 0
+    m_FixedHeight: 0
+    m_StretchWidth: 1
+    m_StretchHeight: 0
   Backpack: {fileID: 2800000, guid: a349db07322f37b4db1f37dfa8a2073d, type: 3}
-  Photo: {fileID: 2800000, guid: e82a2d48e2c627d48b74dce53e9dcf4b, type: 3}
+  Photo: {fileID: 2800000, guid: 0227c09e7284ae340acb14c0274204e1, type: 3}
   Map: {fileID: 2800000, guid: 0506269ff152630408329d799c0aa6ed, type: 3}
   team1Texture: {fileID: 2800000, guid: 8bfd473b310c64c418c55b0b6f8c40b5, type: 3}
+  team1Framed: {fileID: 2800000, guid: 717e9e432c470ed40b36fd84e49ee3c8, type: 3}
   team2Texture: {fileID: 2800000, guid: 5d95ee1cede6b2b489472cb8a573f52c, type: 3}
+  team2Framed: {fileID: 2800000, guid: 717e9e432c470ed40b36fd84e49ee3c8, type: 3}
   team3Texture: {fileID: 2800000, guid: 32983250036761348beaaa75a749681e, type: 3}
+  team3Framed: {fileID: 2800000, guid: 717e9e432c470ed40b36fd84e49ee3c8, type: 3}
   team4Texture: {fileID: 2800000, guid: d2f74f51138aa9e4b877b87d8dd9aecf, type: 3}
-  Background: {fileID: 2800000, guid: c987c015901a15149bb681640abe0e19, type: 3}
+  team4Framed: {fileID: 2800000, guid: 717e9e432c470ed40b36fd84e49ee3c8, type: 3}
+  Background: {fileID: 2800000, guid: a8d2e9409302584478cda44bf3533378, type: 3}
+  infoBox: {fileID: 2800000, guid: 9f7bee77fb9bc364aa78d94f96ce9b27, type: 3}
+  StartPuzzle: {fileID: 2800000, guid: 814c7149354a25b479ef91a18ece43aa, type: 3}
+  BackpackTop: {fileID: 2800000, guid: c611b851b04a82b4dac8be3d2244a11c, type: 3}
+  ScoreBar:
+  - {fileID: 2800000, guid: b89f37a39cab4ae4ca61444bb50cf44a, type: 3}
+  - {fileID: 2800000, guid: 80776d1474e40a0449ecb609fe57a172, type: 3}
+  - {fileID: 2800000, guid: f9db3892d0c43dd449fc92719fde9948, type: 3}
+  - {fileID: 2800000, guid: eef5ce9ca30224542aeb9304e8720770, type: 3}
+  PuzzleGrey:
+  - {fileID: 2800000, guid: 25735c1640c688e409f7a816f81c0d68, type: 3}
+  - {fileID: 2800000, guid: 80c902db1f968c94e8999971db8ccf04, type: 3}
+  - {fileID: 2800000, guid: c552681874f310649ae0fb9697e08695, type: 3}
+  PuzzleColor:
+  - {fileID: 2800000, guid: a30de86c24399a44d921904f72908055, type: 3}
+  - {fileID: 2800000, guid: c9da8dd4c33a2df46b230ec97b82d036, type: 3}
+  - {fileID: 2800000, guid: a6aa7d2ec1e2d2744976395b96e72965, type: 3}
+  infoButton: {fileID: 2800000, guid: ede7ed865efd0684d8f0aa5988702806, type: 3}
+  infoBar: {fileID: 2800000, guid: 6826422dbda2ce54f9114ad254e07634, type: 3}
+  GarryTop: {fileID: 2800000, guid: 769edb3cbf8221c44ab77512666a0352, type: 3}
+  Replay: {fileID: 2800000, guid: f6bd33069ff3d7e43a4f4b1ed32d181d, type: 3}
+  Return: {fileID: 2800000, guid: f3155417a13a4714591223b9a5ab18d5, type: 3}
+  next: {fileID: 2800000, guid: e14895984361dfc4d8c936f44e0827fc, type: 3}
+  back: {fileID: 2800000, guid: 2a029d208fae22c45bdedaa798703692, type: 3}
+  MapBackground: {fileID: 2800000, guid: 716e829a0a4cfd54a91062c02dec52d7, type: 3}
 --- !u!114 &114505586440596736
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -194,16 +290,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   theHost: {fileID: 0}
-  Team1_Texture: {fileID: 2800000, guid: 50856c57efeecbf4a966af6d506e942c, type: 3}
-  Team1_Check: {fileID: 2800000, guid: ca3064af2a5083e4da46a1b1b7f26a6d, type: 3}
-  Team2_Texture: {fileID: 2800000, guid: 46007149bbedbc84ea360b0d92d325f5, type: 3}
-  Team2_Check: {fileID: 2800000, guid: c8da0d275cdb7444287577d506ad2d8f, type: 3}
-  Team3_Texture: {fileID: 2800000, guid: c878bf2d81c6ee649a9c470a997714e7, type: 3}
-  Team3_Check: {fileID: 2800000, guid: 51edb7e7eceb3f046b95777d06d08c37, type: 3}
-  Team4_Texture: {fileID: 2800000, guid: d2a5ef270d32e2b429999027016b436b, type: 3}
-  Team4_Check: {fileID: 2800000, guid: 84466cae7edfaf644b8deedadf9dc1b6, type: 3}
-  KiesJeTeam: {fileID: 2800000, guid: 241c0e538722f5840b5bad19321d4db3, type: 3}
+  Team1_Texture: {fileID: 2800000, guid: 717e9e432c470ed40b36fd84e49ee3c8, type: 3}
+  Team1_Check: {fileID: 2800000, guid: 5dfe9afdf35a0374d9f597c45868083f, type: 3}
+  Team2_Texture: {fileID: 2800000, guid: 8b03fecdc627c814785350e241aa2076, type: 3}
+  Team2_Check: {fileID: 2800000, guid: 83948622081031b469ed1df8e301a20c, type: 3}
+  Team3_Texture: {fileID: 2800000, guid: 7c25e89c36ae09c47b9d02232edec1d0, type: 3}
+  Team3_Check: {fileID: 2800000, guid: cae314cc3561c41458091963e76d14fc, type: 3}
+  Team4_Texture: {fileID: 2800000, guid: 513c4dcec2d33f341acbbf29a1f7c95e, type: 3}
+  Team4_Check: {fileID: 2800000, guid: d51a59b07a00f2b41bde1c1529eb839c, type: 3}
+  KiesJeTeam: {fileID: 2800000, guid: 7742b6c5398e8e04dbaa38b2f1384827, type: 3}
   NextButton: {fileID: 2800000, guid: 8866855a7b1d80d46bf06a254ddfc553, type: 3}
+  Background: {fileID: 2800000, guid: a8d2e9409302584478cda44bf3533378, type: 3}
 --- !u!114 &114909303702612124
 MonoBehaviour:
   m_ObjectHideFlags: 1

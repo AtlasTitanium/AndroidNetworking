@@ -54,6 +54,7 @@ public class ContrastPuzzle2 : NetworkBehaviour {
         }
 		if(pController != null){
 			//Debug.Log("found player");
+			pController.contrastPuzzle2 = this;
 		} else{
 			pController = GameObject.Find("Client").GetComponent<PlayerController>();
 			//Debug.Log("player not found");
@@ -84,7 +85,7 @@ public class ContrastPuzzle2 : NetworkBehaviour {
 					foreach(GameObject color in colors){
 						color.SetActive(false);
 					}
-					pController.CmdGainScore(finalScore,2);
+					pController.GainScore(finalScore,2);
 					this.enabled = false;
 					won = false;
 				}
@@ -138,6 +139,11 @@ public class ContrastPuzzle2 : NetworkBehaviour {
 	}
 
 	private void StartChallenge(){
+		pController.infoPuzzle2 = true;
+		pController.infoBusy = true;
+	}
+
+	public void StartPuzzle(){
 		startButton.gameObject.SetActive(false);
 		foreach(GameObject color in colors){
 			color.SetActive(true);
@@ -152,5 +158,15 @@ public class ContrastPuzzle2 : NetworkBehaviour {
 		finalScore -= 100;
 		yield return new WaitForSeconds(60);
 		finalScore -= 50;
+	}
+
+	public void StopPuzzle(){
+		StopAllCoroutines();
+		finalScore = 200;
+		startButton.gameObject.SetActive(true);
+		foreach(GameObject color in colors){
+			color.SetActive(false);
+		}
+		on = false;
 	}
 }

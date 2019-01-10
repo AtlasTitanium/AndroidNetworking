@@ -6,7 +6,6 @@ using UnityEngine.Networking;
 using UnityEngine.Networking.Match;
 public class TeamPicker : NetworkBehaviour {
 	private PlayerController playerController;
-	private NetworkManager networkManager;
 	public HostInfo theHost;
 
 	//buttons
@@ -30,11 +29,24 @@ public class TeamPicker : NetworkBehaviour {
 
 	public Texture2D KiesJeTeam;
 	public Texture2D NextButton;
+	public Texture2D Background;
 	//end textures
 
 	void Start(){
-		networkManager = NetworkManager.singleton;
 		playerController = GetComponent<PlayerController>();
+		if (!isLocalPlayer)
+        {
+			this.enabled = false;
+            return;
+        } 
+		if(isServer){
+			this.enabled = false;
+			return;
+		}
+
+		if(theHost == null){
+			CmdFindHost();
+		}
 	}
 
 	void Update () {
@@ -98,31 +110,47 @@ public class TeamPicker : NetworkBehaviour {
 		//------------------------------
 
 		//TeamButtons
-		MatchInfo matchInfo = networkManager.matchInfo;
-		GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), KiesJeTeam, ScaleMode.StretchToFill, true, 10.0F);
+		GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), Background, ScaleMode.StretchToFill, true, 10.0F);
+		GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height/14), KiesJeTeam, ScaleMode.StretchToFill, true, 10.0F);
+		int heightMargin = Screen.height/24;
+		int widthMargin = Screen.width/24;
 
-		GUI.DrawTexture(new Rect(0,Screen.height/8,Screen.width/2,Screen.height/2.65f), Team1_Texture, ScaleMode.StretchToFill, true, 10.0F);
-		if(GUI.Button(new Rect(0,Screen.height/8,Screen.width/2,Screen.height/2.65f), "", Team1Button)){
-			playerController.currentTeam = Team.Team1;
-		}
+		//topLeft
+		if(theHost != null){
+			if(theHost.amountTeam1.Count <= 4){
+				GUI.DrawTexture(new Rect(widthMargin,Screen.height/14 + heightMargin/2,Screen.width/2 - widthMargin,Screen.height/3), Team1_Texture, ScaleMode.StretchToFill, true, 10.0F);
+				if(GUI.Button(new Rect(widthMargin,Screen.height/14 + heightMargin/2,Screen.width/2 - widthMargin,Screen.height/3), "", Team1Button)){
+					playerController.currentTeam = Team.Team1;
+				}
+			}
 
-		GUI.DrawTexture(new Rect(Screen.width/2,Screen.height/8,Screen.width/2,Screen.height/2.65f), Team2_Texture, ScaleMode.StretchToFill, true, 10.0F);
-		if(GUI.Button(new Rect(Screen.width/2,Screen.height/8,Screen.width/2,Screen.height/2.65f), "", Team2Button)){
-			playerController.currentTeam = Team.Team2;
-		}
+			//topRight
+			if(theHost.amountTeam2.Count <= 4){
+				GUI.DrawTexture(new Rect(Screen.width/2 + widthMargin,Screen.height/16 + (heightMargin * 2.5f),Screen.width/2 - widthMargin*2,Screen.height/3f), Team2_Texture, ScaleMode.StretchToFill, true, 10.0F);
+				if(GUI.Button(new Rect(Screen.width/2 + widthMargin,Screen.height/16 + (heightMargin * 2.5f),Screen.width/2 - widthMargin*2,Screen.height/3f), "", Team2Button)){
+					playerController.currentTeam = Team.Team2;
+				}
+			}
 
-		GUI.DrawTexture(new Rect(0,Screen.height/2,Screen.width/2,Screen.height/2.65f), Team3_Texture, ScaleMode.StretchToFill, true, 10.0F);
-		if(GUI.Button(new Rect(0,Screen.height/2,Screen.width/2,Screen.height/2.65f), "", Team3Button)){
-			playerController.currentTeam = Team.Team3;
-		}
+			//bottomLeft
+			if(theHost.amountTeam3.Count <= 4){
+				GUI.DrawTexture(new Rect(widthMargin,Screen.height/2 + heightMargin,Screen.width/2 - widthMargin,Screen.height/3), Team3_Texture, ScaleMode.StretchToFill, true, 10.0F);
+				if(GUI.Button(new Rect(widthMargin,Screen.height/2 + heightMargin,Screen.width/2 - widthMargin,Screen.height/3), "", Team3Button)){
+					playerController.currentTeam = Team.Team3;
+				}
+			}
 
-		GUI.DrawTexture(new Rect(Screen.width/2,Screen.height/2,Screen.width/2,Screen.height/2.65f), Team4_Texture, ScaleMode.StretchToFill, true, 10.0F);
-		if(GUI.Button(new Rect(Screen.width/2,Screen.height/2,Screen.width/2,Screen.height/2.65f), "", Team4Button)){
-			playerController.currentTeam = Team.Team4;
+			//bottomRight
+			if(theHost.amountTeam4.Count <= 4){
+				GUI.DrawTexture(new Rect(Screen.width/2 + widthMargin,Screen.height/2 + (heightMargin * 2.5f),Screen.width/2 - widthMargin*2,Screen.height/3), Team4_Texture, ScaleMode.StretchToFill, true, 10.0F);
+				if(GUI.Button(new Rect(Screen.width/2 + widthMargin,Screen.height/2 + (heightMargin * 2.5f),Screen.width/2 - widthMargin*2,Screen.height/3), "", Team4Button)){
+					playerController.currentTeam = Team.Team4;
+				}
+			}
 		}
 
 		//confirmTeam
-		if(GUI.Button(new Rect(Screen.width/16,(Screen.height - Screen.height/9),Screen.width/1.125f,Screen.height/10), "", buttonStyle)){
+		if(GUI.Button(new Rect(widthMargin,Screen.height - Screen.height/10,Screen.width/2.5f,Screen.height/12), "", buttonStyle)){
 			if(playerController.currentTeam != Team.NoTeam){
 				switch(playerController.currentTeam){
 					case Team.Team1:

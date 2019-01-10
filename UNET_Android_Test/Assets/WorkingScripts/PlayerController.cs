@@ -5,42 +5,92 @@ using UnityEngine.Networking;
 
 public enum Team {NoTeam, Team1, Team2, Team3, Team4}
 public class PlayerController : NetworkBehaviour {
-    [SyncVar]
+    
     public Team currentTeam = Team.NoTeam;
-    private Color playerColor;
+
     public HostInfo theHost;
-    [SyncVar]
+   
     public int personalScore;
-    [SyncVar]
+    
     public bool ServerActive = false;
 
-    [SyncVar]	
-	public bool puzzle1 = false;
-	[SyncVar]	
+    public bool infoPuzzle1 = false;	
+	public bool infoPuzzle2 = false;
+	public bool infoPuzzle3 = false;
+ 	
+	public bool puzzle1 = false;	
 	public bool puzzle2 = false;
-	[SyncVar]	
 	public bool puzzle3 = false;
+    public bool infoBusy = false;
 
-    void Start()
+    public KairoPuzzle kairoPuzzle;
+    public ContrastPuzzle1 contrastPuzzle1;
+    public ContrastPuzzle2 contrastPuzzle2;
+
+    public void Start()
     {
-        if(!isServer){
-            this.gameObject.name = "Client";
-            CmdFindHost(); 
-            return;
-        } else {
-            RpcCreateHost();
-            this.gameObject.GetComponent<HostInfo>().enabled = true;
-            this.gameObject.name = "Host";
-            return;
+        //Debug.Log("OneStart");
+        if(isLocalPlayer){
+            if(!isServer){
+                this.gameObject.name = "Client";
+                CmdFindHost(); 
+            } else {
+                RpcCreateHost();
+                this.gameObject.GetComponent<HostInfo>().enabled = true;
+            }
         }
     }
 
-	void Update () {
-        if(!isLocalPlayer){
-            return;
-        }
+	public void Update(){
+        //Debug.Log("Updating");
         ServerActive = isServer;
+
+        if(isLocalPlayer){
+            //Debug.Log("isLocalPlayer");
+            if(!isServer){
+                //Debug.Log("isClient");
+                this.gameObject.name = "Client";
+                CmdFindHost(); 
+            } else {
+                //Debug.Log("isServer");
+                RpcCreateHost();
+                this.gameObject.GetComponent<HostInfo>().enabled = true;
+            }
+        }
 	}
+
+    public void GainScore(int score, int puzzleNumber){
+        personalScore += score;
+        switch(currentTeam){
+            case Team.Team1:
+            theHost.team1Score += score;
+            break;
+
+            case Team.Team2:
+            theHost.team2Score += score;
+            break;
+
+            case Team.Team3:
+            theHost.team3Score += score;
+            break;
+
+            case Team.Team4:
+            theHost.team4Score += score;
+            break;
+        }
+        switch(puzzleNumber){
+            case 1:
+            puzzle1 = true;
+            break;
+            case 2:
+            puzzle2 = true;
+            break;
+            case 3:
+            puzzle3 = true;
+            break;
+        }
+        CmdGainScore(score,puzzleNumber);
+    }
 
     [Command]
     public void CmdGainScore(int score, int puzzleNumber){
@@ -77,17 +127,21 @@ public class PlayerController : NetworkBehaviour {
 
     [ClientRpc]
     public void RpcCreateHost(){
+        this.gameObject.name = "Host";
         this.gameObject.tag = "Host";
+        //Debug.Log("updatePlayer");
     }
 
     [Command]
 	public void CmdFindHost(){
+        //Debug.Log("findingHost");
 		RpcFindHost();
 	}
 
 	[ClientRpc]
 	public void RpcFindHost(){
 		theHost = GameObject.FindGameObjectWithTag("Host").GetComponent<HostInfo>();
+        //Debug.Log("findingHostFromHost");
 	}
 
     public override void OnDeserialize(NetworkReader reader, bool initialState)
@@ -95,48 +149,11 @@ public class PlayerController : NetworkBehaviour {
         base.OnDeserialize(reader, initialState);
     }
 
-    void OnApplicationPauze(){
-        Debug.Log("oofo");
-        CmdSendMessage("pauze");
-        if(!isServer){
-            CmdExitPlayer();
-        }
-    }
-
     void OnApplicationQuit(){
-        Debug.Log("oof");
-        CmdSendMessage("player quit");
-        CmdHostInform();
-    }
-
-    [Command]
-    void CmdExitPlayer(){
-        switch(currentTeam){
-            case Team.Team1:
-            theHost.amountTeam1.Remove(this.gameObject);
-            break;
-
-            case Team.Team2:
-            theHost.amountTeam2.Remove(this.gameObject);
-            break;
-
-            case Team.Team3:
-            theHost.amountTeam3.Remove(this.gameObject);
-            break;
-
-            case Team.Team4:
-            theHost.amountTeam4.Remove(this.gameObject);
-            break;
+        if(!isServer){
+            NetworkManager.singleton.StopClient();
+        } else{
+            NetworkManager.singleton.StopHost();
         }
-    }
-
-    [Command]
-    void CmdSendMessage(string str){
-        Debug.Log(str);
-    }
-
-    [Command]
-    void CmdHostInform(){
-        theHost.RpcInform();
     }
 }

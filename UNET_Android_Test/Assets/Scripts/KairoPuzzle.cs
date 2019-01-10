@@ -30,6 +30,7 @@ public class KairoPuzzle : NetworkBehaviour {
         }
 		if(pController != null){
 			//Debug.Log("found player");
+			pController.kairoPuzzle = this;
 		} else{
 			pController = GameObject.Find("Client").GetComponent<PlayerController>();
 			//Debug.Log("player not found");
@@ -38,7 +39,7 @@ public class KairoPuzzle : NetworkBehaviour {
 
 		brokenPuzzle.SetActive(!pController.puzzle3);
 
-		if(!startPuzzleButton.gameObject.active){
+		if(!startPuzzleButton.gameObject.activeSelf){
 			Debug.Log("puzzle running");
 			foreach(GameObject piece in puzzlePieces){
 				if(piece.GetComponent<Draggable>().isRight){
@@ -69,16 +70,21 @@ public class KairoPuzzle : NetworkBehaviour {
 			end.fontSize = Screen.height/17;
 			string score = "Goed gedaan\nJe wint:\n" + finalScore + " Punten";
 			if(GUI.Button(new Rect(Screen.width/8,Screen.height/4,Screen.width/1.25f,Screen.height/2), score, end)){
-				pController.CmdGainScore(finalScore,3);
+				pController.GainScore(finalScore,1);
 				this.enabled = false;
 			}
 		} 
 	}
 	public void TaskOnClick(){
+		pController.infoPuzzle1 = true;
+		pController.infoBusy = true;
+	}
+
+	public void StartPuzzle(){
 		foreach(GameObject piece in puzzlePieces){
 			piece.GetComponent<Draggable>().enabled = true;
 		}
-		while(startPuzzleButton.gameObject.active){
+		while(startPuzzleButton.gameObject.activeSelf){
 			//Debug.Log("still active");
 			startPuzzleButton.gameObject.SetActive(false);
 		}
@@ -92,5 +98,16 @@ public class KairoPuzzle : NetworkBehaviour {
 		finalScore = 100;
 		yield return new WaitForSeconds(60);
 		finalScore = 50;
+	}
+
+	public void StopPuzzle(){
+		StopAllCoroutines();
+		finalScore = 200;
+		foreach(GameObject piece in puzzlePieces){
+			piece.GetComponent<Draggable>().enabled = false;
+		}
+		while(startPuzzleButton.gameObject.activeSelf){
+			startPuzzleButton.gameObject.SetActive(true);
+		}
 	}
 }
