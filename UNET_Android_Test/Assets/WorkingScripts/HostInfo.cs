@@ -181,6 +181,12 @@ public class HostInfo : NetworkBehaviour {
 			GUI.DrawTexture(new Rect(createLongitude-10,createLatitude-10,20,20), LocationTexture);
 
 			if(amountTeam1.Count != 0){
+				if(amountTeam1[currentPlayer].GetComponent<PlayerController>().helpNeeded){
+					ChangeGUI(button,Onderweg);
+					if(GUI.Button(new Rect(Screen.width/8,Screen.height/8,Screen.width/2,Screen.height/2),"",button)){
+						amountTeam1[currentPlayer].GetComponent<PlayerController>().helpNeeded = false;
+					}
+				}
 				GUI.Box(new Rect(0, Screen.height - Screen.height/10, Screen.width, Screen.height/10), amountTeam1[currentPlayer].name, titleStyle);
 			} else {
 				GUI.Box(new Rect(0, Screen.height - Screen.height/10, Screen.width, Screen.height/10), "!no players!", titleStyle);
@@ -217,6 +223,12 @@ public class HostInfo : NetworkBehaviour {
 			float createLongitude2 = (Screen.width / (maxLongitude - minLongitude)) * (longitudeLocation - minLongitude);
 			GUI.DrawTexture(new Rect(createLongitude2-10,createLatitude2-10,20,20), LocationTexture);
 			if(amountTeam2.Count >= 1){
+				if(amountTeam2[currentPlayer].GetComponent<PlayerController>().helpNeeded){
+					ChangeGUI(button,Onderweg);
+					if(GUI.Button(new Rect(Screen.width/8,Screen.height/8,Screen.width/2,Screen.height/2),"",button)){
+						amountTeam2[currentPlayer].GetComponent<PlayerController>().helpNeeded = false;
+					}
+				}
 				GUI.Box(new Rect(0, Screen.height - Screen.height/10, Screen.width, Screen.height/12), amountTeam2[currentPlayer].name, titleStyle);
 			} else {
 				GUI.Box(new Rect(0, Screen.height - Screen.height/10, Screen.width, Screen.height/12), "!no players!", titleStyle);
@@ -253,6 +265,12 @@ public class HostInfo : NetworkBehaviour {
 			float createLongitude3 = (Screen.width / (maxLongitude - minLongitude)) * (longitudeLocation - minLongitude);
 			GUI.DrawTexture(new Rect(createLongitude3-10,createLatitude3-10,20,20), LocationTexture);
 			if(amountTeam3.Count >= 1){
+				if(amountTeam3[currentPlayer].GetComponent<PlayerController>().helpNeeded){
+					ChangeGUI(button,Onderweg);
+					if(GUI.Button(new Rect(Screen.width/8,Screen.height/8,Screen.width/2,Screen.height/2),"",button)){
+						amountTeam3[currentPlayer].GetComponent<PlayerController>().helpNeeded = false;
+					}
+				}
 				GUI.Box(new Rect(0, Screen.height - Screen.height/10, Screen.width, Screen.height/12), amountTeam3[currentPlayer].name, titleStyle);
 			} else {
 				GUI.Box(new Rect(0, Screen.height - Screen.height/10, Screen.width, Screen.height/12), "!no players!", titleStyle);
@@ -289,6 +307,12 @@ public class HostInfo : NetworkBehaviour {
 			float createLongitude4 = (Screen.width / (maxLongitude - minLongitude)) * (longitudeLocation - minLongitude);
 			GUI.DrawTexture(new Rect(createLongitude4-10,createLatitude4-10,20,20), LocationTexture);
 			if(amountTeam4.Count >= 1){
+				if(amountTeam4[currentPlayer].GetComponent<PlayerController>().helpNeeded){
+					ChangeGUI(button,Onderweg);
+					if(GUI.Button(new Rect(Screen.width/8,Screen.height/8,Screen.width/2,Screen.height/2),"",button)){
+						amountTeam4[currentPlayer].GetComponent<PlayerController>().helpNeeded = false;
+					}
+				}
 				GUI.Box(new Rect(0, Screen.height - Screen.height/10, Screen.width, Screen.height/12), amountTeam4[currentPlayer].name, titleStyle);
 			} else {
 				GUI.Box(new Rect(0, Screen.height - Screen.height/10, Screen.width, Screen.height/12), "!no players!", titleStyle);
