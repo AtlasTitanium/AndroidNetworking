@@ -21,6 +21,8 @@ public class ContrastPuzzle2 : NetworkBehaviour {
 	public Font Dyslectic_font;
 	private bool on = false;
 	private bool won = false;
+	private bool active = false;
+	public List<string> information = new List<string>();
 	void Start(){
 		foreach(GameObject color in colors){
 			color.SetActive(false);
@@ -57,6 +59,7 @@ public class ContrastPuzzle2 : NetworkBehaviour {
 			pController.contrastPuzzle2 = this;
 		} else{
 			pController = GameObject.Find("Client").GetComponent<PlayerController>();
+			pController.contrastPuzzle2 = this;
 			//Debug.Log("player not found");
 			return;
 		}
@@ -85,8 +88,20 @@ public class ContrastPuzzle2 : NetworkBehaviour {
 					foreach(GameObject color in colors){
 						color.SetActive(false);
 					}
+					Debug.Log("donePuzle");
+					pController.GetComponent<PlayerUI>().playerState = PlayerState.None;
+					pController.infoPuzzle = false;
+					if(active){
+						for(int i = 0; i < information.Count; i++){
+							Debug.Log(i);
+							pController.textInfo.RemoveAt(0);
+						}
+						active = false;
+					}
+					startButton.gameObject.SetActive(false);
 					pController.GainScore(finalScore,2);
 					this.enabled = false;
+					on = false;
 					won = false;
 				}
 			} else {
@@ -139,8 +154,15 @@ public class ContrastPuzzle2 : NetworkBehaviour {
 	}
 
 	private void StartChallenge(){
-		pController.infoPuzzle2 = true;
+		pController.cPuzle = Puzl.contrast2;
+		pController.infoPuzzle = true;
 		pController.infoBusy = true;
+		if(pController.textInfo.Count < information.Count){
+			for(int i = 0; i < information.Count; i++){
+				pController.textInfo.Add(information[i]);
+			}
+		}
+		active = true;
 	}
 
 	public void StartPuzzle(){
@@ -162,11 +184,18 @@ public class ContrastPuzzle2 : NetworkBehaviour {
 
 	public void StopPuzzle(){
 		StopAllCoroutines();
-		finalScore = 200;
+		//finalScore = 200;
 		startButton.gameObject.SetActive(true);
 		foreach(GameObject color in colors){
 			color.SetActive(false);
 		}
 		on = false;
+		if(active){
+			for(int i = 0; i < information.Count; i++){
+				Debug.Log(i);
+				pController.textInfo.RemoveAt(0);
+			}
+			active = false;
+		}
 	}
 }

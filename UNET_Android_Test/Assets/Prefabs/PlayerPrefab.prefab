@@ -51,12 +51,34 @@ MonoBehaviour:
   maxLatitude: 52.25263
   minLongitude: 5.253318
   maxLongitude: 5.255185
-  BackgroundTexture: {fileID: 2800000, guid: 1694b3fdcddd71b47833edb626910a84, type: 3}
-  TopTexture: {fileID: 10305, guid: 0000000000000000f000000000000000, type: 0}
-  Team1_Texture: {fileID: 2800000, guid: 4568ffc355a59f94d908cecfc286d73c, type: 3}
-  Team2_Texture: {fileID: 2800000, guid: a0777dea80130c048a8f945ab96d7ab9, type: 3}
-  Team3_Texture: {fileID: 2800000, guid: 962fc443636f33844a92086f7825d4ce, type: 3}
-  Team4_Texture: {fileID: 2800000, guid: 16dadc264878aa64c9dd987ad1c27fdd, type: 3}
+  BackgroundTexture: {fileID: 2800000, guid: 9dab53f75aea6d947b0a7c4077f024b9, type: 3}
+  Terug: {fileID: 2800000, guid: eee1bab572e790e4aaf166e0dab59a4f, type: 3}
+  Team1_Texture: {fileID: 2800000, guid: 7fd95706715b7a94f9a478a82f10344a, type: 3}
+  Team2_Texture: {fileID: 2800000, guid: 1a8a493dcf7ba954d86d746b8bb88712, type: 3}
+  Team3_Texture: {fileID: 2800000, guid: 7c25e89c36ae09c47b9d02232edec1d0, type: 3}
+  Team4_Texture: {fileID: 2800000, guid: d19ae802a13465c4a99a8987928aa9c8, type: 3}
+  dislecticFont: {fileID: 12800000, guid: 4c711bab75c30ef4bb958321176c0e7d, type: 3}
+  ScoreBoardTexture: {fileID: 2800000, guid: 95ef08724bc864a4da7a634a9bad666c, type: 3}
+  infoButton: {fileID: 2800000, guid: ede7ed865efd0684d8f0aa5988702806, type: 3}
+  Team1Bar: {fileID: 2800000, guid: fbc3fc3a303d50442a306e59fdf7dc50, type: 3}
+  Team2Bar: {fileID: 2800000, guid: 06c8bd72b18df7c46a0cf0a64b14e82a, type: 3}
+  Team3Bar: {fileID: 2800000, guid: 4fc25ad6d1699e54e8abb28f98610d51, type: 3}
+  Team4Bar: {fileID: 2800000, guid: da08bd203415f4f42b25cce62a6078ce, type: 3}
+  ScoreBlock: {fileID: 2800000, guid: 04234b42204ec054f874ae066f770e8e, type: 3}
+  HelpBackground: {fileID: 2800000, guid: 483dc561ab6367f4d8a54b070b9dc953, type: 3}
+  Onderweg: {fileID: 2800000, guid: a8b222fa954d33f4cbb2470c632ce319, type: 3}
+  infoTopBar: {fileID: 2800000, guid: 6826422dbda2ce54f9114ad254e07634, type: 3}
+  mapIcon: {fileID: 2800000, guid: 76e026cc6ff292547bb8bfb037def805, type: 3}
+  BackpackPenseel: {fileID: 2800000, guid: 1fd15c525ac28d44bacb7775320abe04, type: 3}
+  GroepPenseel: {fileID: 2800000, guid: c8483301d16f8d04d91e37f7caaadc49, type: 3}
+  PuzzleGrey:
+  - {fileID: 2800000, guid: 25735c1640c688e409f7a816f81c0d68, type: 3}
+  - {fileID: 2800000, guid: 80c902db1f968c94e8999971db8ccf04, type: 3}
+  - {fileID: 2800000, guid: c552681874f310649ae0fb9697e08695, type: 3}
+  PuzzleColor:
+  - {fileID: 2800000, guid: a30de86c24399a44d921904f72908055, type: 3}
+  - {fileID: 2800000, guid: c9da8dd4c33a2df46b230ec97b82d036, type: 3}
+  - {fileID: 2800000, guid: a6aa7d2ec1e2d2744976395b96e72965, type: 3}
   amountTeam1: []
   amountTeam2: []
   amountTeam3: []
@@ -211,20 +233,91 @@ MonoBehaviour:
     m_FixedHeight: 0
     m_StretchWidth: 1
     m_StretchHeight: 0
+  textStyle:
+    m_Name: 
+    m_Normal:
+      m_Background: {fileID: 0}
+      m_ScaledBackgrounds: []
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_Hover:
+      m_Background: {fileID: 0}
+      m_ScaledBackgrounds: []
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_Active:
+      m_Background: {fileID: 0}
+      m_ScaledBackgrounds: []
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_Focused:
+      m_Background: {fileID: 0}
+      m_ScaledBackgrounds: []
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_OnNormal:
+      m_Background: {fileID: 0}
+      m_ScaledBackgrounds: []
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_OnHover:
+      m_Background: {fileID: 0}
+      m_ScaledBackgrounds: []
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_OnActive:
+      m_Background: {fileID: 0}
+      m_ScaledBackgrounds: []
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_OnFocused:
+      m_Background: {fileID: 0}
+      m_ScaledBackgrounds: []
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_Border:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    m_Margin:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    m_Padding:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    m_Overflow:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    m_Font: {fileID: 0}
+    m_FontSize: 0
+    m_FontStyle: 0
+    m_Alignment: 0
+    m_WordWrap: 0
+    m_RichText: 1
+    m_TextClipping: 0
+    m_ImagePosition: 0
+    m_ContentOffset: {x: 0, y: 0}
+    m_FixedWidth: 0
+    m_FixedHeight: 0
+    m_StretchWidth: 1
+    m_StretchHeight: 0
   Backpack: {fileID: 2800000, guid: a349db07322f37b4db1f37dfa8a2073d, type: 3}
   Photo: {fileID: 2800000, guid: 0227c09e7284ae340acb14c0274204e1, type: 3}
   Map: {fileID: 2800000, guid: 0506269ff152630408329d799c0aa6ed, type: 3}
   team1Texture: {fileID: 2800000, guid: 8bfd473b310c64c418c55b0b6f8c40b5, type: 3}
   team1Framed: {fileID: 2800000, guid: 717e9e432c470ed40b36fd84e49ee3c8, type: 3}
   team2Texture: {fileID: 2800000, guid: 5d95ee1cede6b2b489472cb8a573f52c, type: 3}
-  team2Framed: {fileID: 2800000, guid: 717e9e432c470ed40b36fd84e49ee3c8, type: 3}
+  team2Framed: {fileID: 2800000, guid: 8b03fecdc627c814785350e241aa2076, type: 3}
   team3Texture: {fileID: 2800000, guid: 32983250036761348beaaa75a749681e, type: 3}
-  team3Framed: {fileID: 2800000, guid: 717e9e432c470ed40b36fd84e49ee3c8, type: 3}
+  team3Framed: {fileID: 2800000, guid: e756ba751e277b34cb64b938ec4f1fc6, type: 3}
   team4Texture: {fileID: 2800000, guid: d2f74f51138aa9e4b877b87d8dd9aecf, type: 3}
-  team4Framed: {fileID: 2800000, guid: 717e9e432c470ed40b36fd84e49ee3c8, type: 3}
+  team4Framed: {fileID: 2800000, guid: 7f3c907bc39b54a4989e4f970e2857d6, type: 3}
+  InputFieldBackground: {fileID: 2800000, guid: d552cae9f8e715144afee08e2f570542,
+    type: 3}
+  ButtonBackground: {fileID: 2800000, guid: c987c015901a15149bb681640abe0e19, type: 3}
   Background: {fileID: 2800000, guid: a8d2e9409302584478cda44bf3533378, type: 3}
   infoBox: {fileID: 2800000, guid: 9f7bee77fb9bc364aa78d94f96ce9b27, type: 3}
   StartPuzzle: {fileID: 2800000, guid: 814c7149354a25b479ef91a18ece43aa, type: 3}
+  currentFont: {fileID: 12800000, guid: 4c711bab75c30ef4bb958321176c0e7d, type: 3}
   BackpackTop: {fileID: 2800000, guid: c611b851b04a82b4dac8be3d2244a11c, type: 3}
   ScoreBar:
   - {fileID: 2800000, guid: b89f37a39cab4ae4ca61444bb50cf44a, type: 3}
@@ -241,12 +334,19 @@ MonoBehaviour:
   - {fileID: 2800000, guid: a6aa7d2ec1e2d2744976395b96e72965, type: 3}
   infoButton: {fileID: 2800000, guid: ede7ed865efd0684d8f0aa5988702806, type: 3}
   infoBar: {fileID: 2800000, guid: 6826422dbda2ce54f9114ad254e07634, type: 3}
-  GarryTop: {fileID: 2800000, guid: 769edb3cbf8221c44ab77512666a0352, type: 3}
+  GarryTop: {fileID: 2800000, guid: ce270bc92f19dfd4997a6cf99a7083a4, type: 3}
   Replay: {fileID: 2800000, guid: f6bd33069ff3d7e43a4f4b1ed32d181d, type: 3}
   Return: {fileID: 2800000, guid: f3155417a13a4714591223b9a5ab18d5, type: 3}
   next: {fileID: 2800000, guid: e14895984361dfc4d8c936f44e0827fc, type: 3}
   back: {fileID: 2800000, guid: 2a029d208fae22c45bdedaa798703692, type: 3}
   MapBackground: {fileID: 2800000, guid: 716e829a0a4cfd54a91062c02dec52d7, type: 3}
+  LocationTexture: {fileID: 2800000, guid: 8d558b681bbb820429dffc4835c9b288, type: 3}
+  minLatitude: 52.25055
+  maxLatitude: 52.25263
+  minLongitude: 5.253318
+  maxLongitude: 5.255185
+  latitudeLocation: 0
+  longitudeLocation: 0
 --- !u!114 &114505586440596736
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -262,9 +362,18 @@ MonoBehaviour:
   theHost: {fileID: 0}
   personalScore: 0
   ServerActive: 0
+  cPuzle: 3
+  infoPuzzle: 0
   puzzle1: 0
   puzzle2: 0
   puzzle3: 0
+  infoBusy: 0
+  helpNeeded: 0
+  textInfo: []
+  kairoPuzzle: {fileID: 0}
+  contrastPuzzle1: {fileID: 0}
+  contrastPuzzle2: {fileID: 0}
+  name: 
 --- !u!114 &114571593535342100
 MonoBehaviour:
   m_ObjectHideFlags: 1

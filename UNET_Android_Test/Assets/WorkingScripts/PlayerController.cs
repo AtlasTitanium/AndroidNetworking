@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
+public enum Puzl{kairo,contrast1,contrast2,none}
 public enum Team {NoTeam, Team1, Team2, Team3, Team4}
 public class PlayerController : NetworkBehaviour {
     
@@ -13,26 +14,28 @@ public class PlayerController : NetworkBehaviour {
     public int personalScore;
     
     public bool ServerActive = false;
+    public Puzl cPuzle = Puzl.none;
 
-    public bool infoPuzzle1 = false;	
-	public bool infoPuzzle2 = false;
-	public bool infoPuzzle3 = false;
- 	
+    public bool infoPuzzle = false;	
 	public bool puzzle1 = false;	
 	public bool puzzle2 = false;
 	public bool puzzle3 = false;
     public bool infoBusy = false;
+    public bool helpNeeded = false;
+    public List<string> textInfo = new List<string>();
 
     public KairoPuzzle kairoPuzzle;
     public ContrastPuzzle1 contrastPuzzle1;
     public ContrastPuzzle2 contrastPuzzle2;
+    public string name;
 
     public void Start()
     {
         //Debug.Log("OneStart");
         if(isLocalPlayer){
             if(!isServer){
-                this.gameObject.name = "Client";
+                name = "Client";
+                this.gameObject.name = name;
                 CmdFindHost(); 
             } else {
                 RpcCreateHost();
@@ -46,10 +49,13 @@ public class PlayerController : NetworkBehaviour {
         ServerActive = isServer;
 
         if(isLocalPlayer){
+            if(helpNeeded){
+                CmdAskForHelp();
+            }
             //Debug.Log("isLocalPlayer");
             if(!isServer){
                 //Debug.Log("isClient");
-                this.gameObject.name = "Client";
+                this.gameObject.name = name;
                 CmdFindHost(); 
             } else {
                 //Debug.Log("isServer");
@@ -138,6 +144,12 @@ public class PlayerController : NetworkBehaviour {
 		RpcFindHost();
 	}
 
+    [Command]
+	public void CmdAskForHelp(){
+        //Debug.Log("findingHost");
+		this.helpNeeded = true;
+	}
+
 	[ClientRpc]
 	public void RpcFindHost(){
 		theHost = GameObject.FindGameObjectWithTag("Host").GetComponent<HostInfo>();
@@ -147,6 +159,12 @@ public class PlayerController : NetworkBehaviour {
     public override void OnDeserialize(NetworkReader reader, bool initialState)
     {
         base.OnDeserialize(reader, initialState);
+    }
+
+    [Command]
+    public void CmdChangeName(string newName){
+        name = newName;
+        this.gameObject.name = name;
     }
 
     void OnApplicationQuit(){
