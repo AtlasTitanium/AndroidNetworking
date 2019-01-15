@@ -18,6 +18,7 @@ public class KairoPuzzle : NetworkBehaviour {
 	private bool won = false;
 	private bool active = false;
 	public List<string> information = new List<string>();
+	
 	void Start(){
 		startPuzzleButton.onClick.AddListener(TaskOnClick);	
 		foreach(GameObject piece in puzzlePieces){

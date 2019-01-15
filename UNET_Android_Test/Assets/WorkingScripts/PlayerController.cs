@@ -24,6 +24,7 @@ public class PlayerController : NetworkBehaviour {
     public bool help = false;
     public bool helpNeeded = false;
     public List<string> textInfo = new List<string>();
+    public List<Texture2D> imageInfo = new List<Texture2D>();
 
     public KairoPuzzle kairoPuzzle;
     public ContrastPuzzle1 contrastPuzzle1;

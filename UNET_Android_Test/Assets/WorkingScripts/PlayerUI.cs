@@ -74,10 +74,12 @@ public class PlayerUI : NetworkBehaviour {
 	private int puzzlesDone = 0;
 
 	private int currentTextNumber = 0;
+	private int currentImageNumber = 0;
 	private bool kairo;
 	private bool milk;
 	private bool night;
 	private string newName;
+	private bool lastImage;
 	void Start(){
 		if (!isLocalPlayer)
         {
@@ -141,6 +143,7 @@ public class PlayerUI : NetworkBehaviour {
 				if(GUI.Button(new Rect(Screen.width/2, Screen.height/12 + Screen.height/12 + heightMargin*4, Screen.width/2.5f,Screen.height/10), "", customButton)){
 					playerState = PlayerState.OutPuzzle;
 					currentTextNumber = 0;
+					currentImageNumber = 0;
 					kairo = true;
 				}
 
@@ -154,6 +157,7 @@ public class PlayerUI : NetworkBehaviour {
 				if(GUI.Button(new Rect(Screen.width/2, Screen.height/12 + Screen.height/12 + Screen.height/4.5f + heightMargin*5, Screen.width/2.5f,Screen.height/10), "", customButton)){
 					playerState = PlayerState.OutPuzzle;
 					currentTextNumber = 0;
+					currentImageNumber = 0;
 					milk = true;
 				}
 
@@ -167,6 +171,7 @@ public class PlayerUI : NetworkBehaviour {
 				if(GUI.Button(new Rect(Screen.width/2, Screen.height/12 + Screen.height/12 + Screen.height/4.5f + Screen.height/4.5f + heightMargin*6, Screen.width/2.5f,Screen.height/10), "", customButton)){
 					playerState = PlayerState.OutPuzzle;
 					currentTextNumber = 0;
+					currentImageNumber = 0;
 					night = true;
 				}
 
@@ -212,14 +217,14 @@ public class PlayerUI : NetworkBehaviour {
 			//ROAMING----------------------------------------------------------------------------
 			case PlayerState.None:
 				customButton = new GUIStyle("button");
-				float border = Screen.width/48;
-				float box = (((Screen.width/48) * 46)/3);
+				float border = Screen.width/36;
+				float box = (((Screen.width/36) * 34)/3);
 				float height = Screen.height/8;
 				
 				//Backpack
 				customButton.normal.background = Backpack;
 				customButton.hover.background = Backpack;
-				if (GUI.Button(new Rect(border, Screen.height-height-height/2, box*0.9f, height*1.5f), "", customButton)){
+				if (GUI.Button(new Rect(border, Screen.height-height-height/4, box*0.9f, height*1.2f), "", customButton)){
 					playerState = PlayerState.Backpack;
 				}
 
@@ -234,7 +239,7 @@ public class PlayerUI : NetworkBehaviour {
 				//Map
 				customButton.normal.background = Map;
 				customButton.hover.background = Map;
-				if (GUI.Button(new Rect(border*3 + box + box, Screen.height-height-height/4, box*0.8f, height), "", customButton)){
+				if (GUI.Button(new Rect(border*3 + box + box, Screen.height-height-height/4, box*0.8f, height*1.2f), "", customButton)){
 					playerState = PlayerState.Map;
 				}
 			break;
@@ -283,23 +288,32 @@ public class PlayerUI : NetworkBehaviour {
 					GUI.DrawTexture(new Rect(Screen.width/4,Screen.height/40,Screen.width/2,Screen.height/3.5f),GarryTop);
 
 					if(currentTextNumber != currentPlayer.textInfo.Count){
-						GUI.DrawTexture(new Rect(Screen.width/40, (Screen.height/6)*2, Screen.width - Screen.width/20, Screen.height/3),infoBox);
+						GUI.DrawTexture(new Rect(Screen.width/40, (Screen.height/48)*15, Screen.width - Screen.width/20, (Screen.height/48)*17),infoBox);
 
 						string currentText = currentPlayer.textInfo[currentTextNumber];
-						currentText = currentText.Replace("<br>", "\n");
-						GUI.Box(new Rect(Screen.width/40, (Screen.height/6)*2, Screen.width - Screen.width/20, Screen.height/3), currentText, textStyle);
+						if(currentText != "<image>"){
+							currentText = SpliceText(currentText, 22);
+							currentText = currentText.Replace("<br>", "");
+							GUI.Box(new Rect(Screen.width/40, (Screen.height/6)*2, Screen.width - Screen.width/20, Screen.height/3), currentText, textStyle);
+						} else {
+							GUI.DrawTexture(new Rect(Screen.width/5, (Screen.height/96)*31, Screen.width - Screen.width/2.5f, Screen.height/3), currentPlayer.imageInfo[currentImageNumber]);
+						}
+						
 
 						ChangeGUI(styleButton,next);
 						if(GUI.Button(new Rect(Screen.width/16, (Screen.height/16)*11,Screen.width/3,Screen.height/12),"",styleButton)){
+							if(currentText == "<image>"){
+								currentImageNumber++;
+							}
 							currentTextNumber++;
 						}
 						if(currentTextNumber >= 1){
 							ChangeGUI(styleButton,back);
 							if(GUI.Button(new Rect(Screen.width/16, (Screen.height/16)*11 + Screen.height/12 + Screen.height/48,Screen.width/3,Screen.height/12),"",styleButton)){
-								currentTextNumber--;
-								if(currentTextNumber <= -1){
-									currentTextNumber = 0;
+								if(currentPlayer.textInfo[currentTextNumber-1] == "<image>"){
+									currentImageNumber--;
 								}
+								currentTextNumber--;
 							}
 						}
 					} else {
@@ -316,10 +330,12 @@ public class PlayerUI : NetworkBehaviour {
 							}
 							currentPlayer.infoBusy = false;
 							currentTextNumber = 0;
+							currentImageNumber = 0;
 						}
 						ChangeGUI(styleButton,Replay);
 						if(GUI.Button(new Rect(Screen.width/10, (Screen.height/16)*12,Screen.width/4,Screen.height/8),"", styleButton)){
 							currentTextNumber = 0;
+							currentImageNumber = 0;
 						}
 					}
 
@@ -380,6 +396,7 @@ public class PlayerUI : NetworkBehaviour {
 						} else {
 							playerState = PlayerState.Backpack;
 							currentTextNumber = 0;
+							currentImageNumber = 0;
 							kairo = false;
 						}
 					}
@@ -388,25 +405,37 @@ public class PlayerUI : NetworkBehaviour {
 							GUI.DrawTexture(new Rect(Screen.width/20, (Screen.height/6)*2, Screen.width/1.2f, Screen.height/3),infoBox);
 
 							string currentText = currentPlayer.contrastPuzzle2.information[currentTextNumber];
-							currentText = currentText.Replace("<br>", "\n");
-							GUI.Box(new Rect(Screen.width/20, (Screen.height/6)*2, Screen.width/1.2f, Screen.height/3), currentText, textStyle);
+							//====================
+							if(currentText != "<image>"){
+								currentText = SpliceText(currentText, 22);
+								currentText = currentText.Replace("<br>", "");
+								GUI.Box(new Rect(Screen.width/40, (Screen.height/6)*2, Screen.width - Screen.width/20, Screen.height/3), currentText, textStyle);
+							} else {
+								GUI.DrawTexture(new Rect(Screen.width/5, (Screen.height/96)*31, Screen.width - Screen.width/2.5f, Screen.height/3), currentPlayer.contrastPuzzle2.Images[currentImageNumber]);
+							}
+							
 
 							ChangeGUI(styleButton,next);
 							if(GUI.Button(new Rect(Screen.width/16, (Screen.height/16)*11,Screen.width/3,Screen.height/12),"",styleButton)){
+								if(currentText == "<image>"){
+									currentImageNumber++;
+								}
 								currentTextNumber++;
 							}
 							if(currentTextNumber >= 1){
 								ChangeGUI(styleButton,back);
 								if(GUI.Button(new Rect(Screen.width/16, (Screen.height/16)*11 + Screen.height/12 + Screen.height/48,Screen.width/3,Screen.height/12),"",styleButton)){
-									currentTextNumber--;
-									if(currentTextNumber <= -1){
-										currentTextNumber = 0;
+									if(currentPlayer.contrastPuzzle2.information[currentTextNumber-1] == "<image>"){
+										currentImageNumber--;
 									}
+									currentTextNumber--;
 								}
 							}
+							//=================
 						} else {
 							playerState = PlayerState.Backpack;
 							currentTextNumber = 0;
+							currentImageNumber = 0;
 							milk = false;
 						}
 					}
@@ -415,25 +444,37 @@ public class PlayerUI : NetworkBehaviour {
 							GUI.DrawTexture(new Rect(Screen.width/20, (Screen.height/6)*2, Screen.width/1.2f, Screen.height/3),infoBox);
 
 							string currentText = currentPlayer.contrastPuzzle1.information[currentTextNumber];
-							currentText = currentText.Replace("<br>", "\n");
-							GUI.Box(new Rect(Screen.width/20, (Screen.height/6)*2, Screen.width/1.2f, Screen.height/3), currentText, textStyle);
+							//====================
+							if(currentText != "<image>"){
+								currentText = SpliceText(currentText, 22);
+								currentText = currentText.Replace("<br>", "");
+								GUI.Box(new Rect(Screen.width/40, (Screen.height/6)*2, Screen.width - Screen.width/20, Screen.height/3), currentText, textStyle);
+							} else {
+								GUI.DrawTexture(new Rect(Screen.width/5, (Screen.height/96)*31, Screen.width - Screen.width/2.5f, Screen.height/3), currentPlayer.contrastPuzzle1.Images[currentImageNumber]);
+							}
+							
 
 							ChangeGUI(styleButton,next);
 							if(GUI.Button(new Rect(Screen.width/16, (Screen.height/16)*11,Screen.width/3,Screen.height/12),"",styleButton)){
+								if(currentText == "<image>"){
+									currentImageNumber++;
+								}
 								currentTextNumber++;
 							}
 							if(currentTextNumber >= 1){
 								ChangeGUI(styleButton,back);
 								if(GUI.Button(new Rect(Screen.width/16, (Screen.height/16)*11 + Screen.height/12 + Screen.height/48,Screen.width/3,Screen.height/12),"",styleButton)){
-									currentTextNumber--;
-									if(currentTextNumber <= -1){
-										currentTextNumber = 0;
+									if(currentPlayer.contrastPuzzle1.information[currentTextNumber-1] == "<image>"){
+										currentImageNumber--;
 									}
+									currentTextNumber--;
 								}
 							}
+							//=================
 						} else {
 							playerState = PlayerState.Backpack;
 							currentTextNumber = 0;
+							currentImageNumber = 0;
 							night = false;
 						}
 					}
@@ -493,6 +534,23 @@ public class PlayerUI : NetworkBehaviour {
 		currentStyle.hover.background = buttonTexture;
 		currentStyle.focused.background = buttonTexture;
 		currentStyle.active.background = buttonTexture;
+	}
+
+	public string SpliceText(string inputText, int lineLength) {
+		string[] stringSplit = inputText.Split(' ');
+		int charCounter = 0;
+		string finalString = "";
+	
+		for(int i=0; i < stringSplit.Length; i++){
+			finalString += stringSplit[i] + " ";
+			charCounter += stringSplit[i].Length;
+	
+			if(charCounter > lineLength){
+				finalString += "\n";
+				charCounter = 0;
+			}
+		}
+		return finalString;
 	}
 }
 

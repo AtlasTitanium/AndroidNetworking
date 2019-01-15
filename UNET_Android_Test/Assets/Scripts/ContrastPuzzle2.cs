@@ -23,6 +23,7 @@ public class ContrastPuzzle2 : NetworkBehaviour {
 	private bool won = false;
 	private bool active = false;
 	public List<string> information = new List<string>();
+	public List<Texture2D> Images = new List<Texture2D>();
 	void Start(){
 		foreach(GameObject color in colors){
 			color.SetActive(false);
@@ -114,40 +115,43 @@ public class ContrastPuzzle2 : NetworkBehaviour {
 				}
 			}
 
+			int BlockWidth = Screen.width/5;
+			int BlockHeight = Screen.height/12;
+
 			//Color3
 			if(_Color3){
-				GUI.DrawTexture(new Rect((Screen.width - Screen.width/8), 0, Screen.width/8, Screen.height/10), Color3, ScaleMode.StretchToFill, true, 10.0F);
+				GUI.DrawTexture(new Rect(0, 0, BlockWidth, BlockHeight), Color3, ScaleMode.StretchToFill, true, 10.0F);
 			} else {
-				GUI.DrawTexture(new Rect((Screen.width - Screen.width/8), 0, Screen.width/8, Screen.height/10), white, ScaleMode.StretchToFill, true, 10.0F);
+				GUI.DrawTexture(new Rect(0, 0, BlockWidth, BlockHeight), white, ScaleMode.StretchToFill, true, 10.0F);
 			}
 
 			//Color2
 			if(_Color2){
-				GUI.DrawTexture(new Rect((Screen.width - Screen.width/8), Screen.height/10, Screen.width/8, Screen.height/10), Color2, ScaleMode.StretchToFill, true, 10.0F);
+				GUI.DrawTexture(new Rect(BlockWidth, 0, BlockWidth, BlockHeight), Color2, ScaleMode.StretchToFill, true, 10.0F);
 			} else {
-				GUI.DrawTexture(new Rect((Screen.width - Screen.width/8), Screen.height/10, Screen.width/8, Screen.height/10), white, ScaleMode.StretchToFill, true, 10.0F);
+				GUI.DrawTexture(new Rect(BlockWidth, 0, BlockWidth, BlockHeight), white, ScaleMode.StretchToFill, true, 10.0F);
 			}
 
 			//Color1
 	
 			if(_Color1){
-				GUI.DrawTexture(new Rect((Screen.width - Screen.width/8), (Screen.height/10)*2, Screen.width/8, Screen.height/10), Color1, ScaleMode.StretchToFill, true, 10.0F);
+				GUI.DrawTexture(new Rect(BlockWidth*2, 0, BlockWidth, BlockHeight), Color1, ScaleMode.StretchToFill, true, 10.0F);
 			} else {
-				GUI.DrawTexture(new Rect((Screen.width - Screen.width/8), (Screen.height/10)*2, Screen.width/8, Screen.height/10), white, ScaleMode.StretchToFill, true, 10.0F);
+				GUI.DrawTexture(new Rect(BlockWidth*2, 0, BlockWidth, BlockHeight), white, ScaleMode.StretchToFill, true, 10.0F);
 			}
 
 			//Color4
 			if(_Color4){
-				GUI.DrawTexture(new Rect((Screen.width - Screen.width/8), (Screen.height/10)*3, Screen.width/8, Screen.height/10), Color4, ScaleMode.StretchToFill, true, 10.0F);
+				GUI.DrawTexture(new Rect(BlockWidth*3, 0, BlockWidth, BlockHeight), Color4, ScaleMode.StretchToFill, true, 10.0F);
 			} else {
-				GUI.DrawTexture(new Rect((Screen.width - Screen.width/8), (Screen.height/10)*3, Screen.width/8, Screen.height/10), white, ScaleMode.StretchToFill, true, 10.0F);
+				GUI.DrawTexture(new Rect(BlockWidth*3, 0, BlockWidth, BlockHeight), white, ScaleMode.StretchToFill, true, 10.0F);
 			}
 
 			//Color5
 			if(_Color5){
-				GUI.DrawTexture(new Rect((Screen.width - Screen.width/8), (Screen.height/10)*4, Screen.width/8, Screen.height/10), Color5, ScaleMode.StretchToFill, true, 10.0F);
+				GUI.DrawTexture(new Rect(BlockWidth*4, 0, BlockWidth, BlockHeight), Color5, ScaleMode.StretchToFill, true, 10.0F);
 			} else {
-				GUI.DrawTexture(new Rect((Screen.width - Screen.width/8), (Screen.height/10)*4, Screen.width/8, Screen.height/10), white, ScaleMode.StretchToFill, true, 10.0F);
+				GUI.DrawTexture(new Rect(BlockWidth*4, 0, BlockWidth, BlockHeight), white, ScaleMode.StretchToFill, true, 10.0F);
 			}
 		}
 		
@@ -162,6 +166,13 @@ public class ContrastPuzzle2 : NetworkBehaviour {
 				pController.textInfo.Add(information[i]);
 			}
 		}
+
+		if(pController.imageInfo.Count < Images.Count){
+			for(int i = 0; i < Images.Count; i++){
+				pController.imageInfo.Add(Images[i]);
+			}
+		}
+
 		active = true;
 	}
 
@@ -194,6 +205,10 @@ public class ContrastPuzzle2 : NetworkBehaviour {
 			for(int i = 0; i < information.Count; i++){
 				Debug.Log(i);
 				pController.textInfo.RemoveAt(0);
+			}
+			for(int i = 0; i < Images.Count; i++){
+				Debug.Log(i);
+				pController.imageInfo.RemoveAt(0);
 			}
 			active = false;
 		}
