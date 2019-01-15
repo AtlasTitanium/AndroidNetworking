@@ -22,6 +22,8 @@ public class HostInfo : NetworkBehaviour {
 	//end location tracking
 	[Header("General")]
 	public Texture2D BackgroundTexture;
+	public Texture2D TextBackground;
+	public Texture2D ButtonBackground;
 	public Texture2D Terug;
 	public Texture2D Team1_Texture;
 	public Texture2D Team2_Texture;
@@ -630,6 +632,43 @@ public class HostInfo : NetworkBehaviour {
 				if(GUI.Button(new Rect(Screen.width/3, Screen.height/12 + HeighMargin + FrameHeight/1.8f, Screen.width/4, Screen.height/20), "", ChangeGUI(style, infoButton))){
 					localTrack = LocationTrack.Team4;
 				}
+
+			for(int i = 0; i < amountTeam1.Count; i++){
+				if(amountTeam1[i].GetComponent<PlayerController>().helpNeeded){
+					string info = amountTeam1[i].name + " needs your help!";
+					GUI.Box(new Rect(0,Screen.height/4,Screen.width,Screen.height/4), info, ChangeGUI(style, TextBackground));
+					if(GUI.Button(new Rect(0,Screen.height/2,Screen.width,Screen.height/10), "Onderweg", ChangeGUI(style, ButtonBackground))){
+						RpcHelpIsComing(amountTeam1[currentPlayer]);
+					}
+				}
+			}
+			for(int i = 0; i < amountTeam2.Count; i++){
+				if(amountTeam2[i].GetComponent<PlayerController>().helpNeeded){
+					string info = amountTeam2[i].name + " needs your help!";
+					GUI.Box(new Rect(0,Screen.height/4,Screen.width,Screen.height/4), info, ChangeGUI(style, TextBackground));
+					if(GUI.Button(new Rect(0,Screen.height/2,Screen.width,Screen.height/10), "Onderweg", ChangeGUI(style, ButtonBackground))){
+						RpcHelpIsComing(amountTeam2[currentPlayer]);
+					}
+				}
+			}
+			for(int i = 0; i < amountTeam3.Count; i++){
+				if(amountTeam3[i].GetComponent<PlayerController>().helpNeeded){
+					string info = amountTeam3[i].name + " needs your help!";
+					GUI.Box(new Rect(0,Screen.height/4,Screen.width,Screen.height/4), info, ChangeGUI(style, TextBackground));
+					if(GUI.Button(new Rect(0,Screen.height/2,Screen.width,Screen.height/10), "Onderweg", ChangeGUI(style, ButtonBackground))){
+						RpcHelpIsComing(amountTeam3[currentPlayer]);
+					}
+				}
+			}
+			for(int i = 0; i < amountTeam4.Count; i++){
+				if(amountTeam4[i].GetComponent<PlayerController>().helpNeeded){
+					string info = amountTeam4[i].name + " needs your help!";
+					GUI.Box(new Rect(0,Screen.height/4,Screen.width,Screen.height/4), info, ChangeGUI(style, TextBackground));
+					if(GUI.Button(new Rect(0,Screen.height/2,Screen.width,Screen.height/10), "Onderweg", ChangeGUI(style, ButtonBackground))){
+						RpcHelpIsComing(amountTeam4[currentPlayer]);
+					}
+				}
+			}
 			break;
 	//End=NormalScreen--------------------------------------------------------------------------------------------------
 		}
