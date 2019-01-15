@@ -21,6 +21,7 @@ public class PlayerController : NetworkBehaviour {
 	public bool puzzle2 = false;
 	public bool puzzle3 = false;
     public bool infoBusy = false;
+    public bool help = false;
     public bool helpNeeded = false;
     public List<string> textInfo = new List<string>();
 
@@ -49,8 +50,10 @@ public class PlayerController : NetworkBehaviour {
         ServerActive = isServer;
 
         if(isLocalPlayer){
-            if(helpNeeded){
+            if(help){
                 CmdAskForHelp();
+            } else {
+                CmdNoHelpNeeded();
             }
             //Debug.Log("isLocalPlayer");
             if(!isServer){
@@ -149,6 +152,13 @@ public class PlayerController : NetworkBehaviour {
         //Debug.Log("findingHost");
 		this.helpNeeded = true;
 	}
+
+    [Command]
+	public void CmdNoHelpNeeded(){
+        //Debug.Log("findingHost");
+		this.helpNeeded = false;
+	}
+
 
 	[ClientRpc]
 	public void RpcFindHost(){

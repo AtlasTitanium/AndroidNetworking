@@ -101,7 +101,7 @@ public class PlayerUI : NetworkBehaviour {
 		styleButton.fontSize = Screen.width;
 
 		textStyle = new GUIStyle();
-		textStyle.fontSize = Screen.width/16;
+		textStyle.fontSize = Screen.width/24;
 		textStyle.font = currentFont;
 		textStyle.alignment = TextAnchor.MiddleCenter;
 
@@ -211,49 +211,30 @@ public class PlayerUI : NetworkBehaviour {
 
 			//ROAMING----------------------------------------------------------------------------
 			case PlayerState.None:
-				switch(this.GetComponent<PlayerController>().currentTeam){
-					case Team.Team1:
-					GUI.DrawTexture(new Rect(0,0,Screen.width,Screen.height),team1Texture);
-					break;
-
-					case Team.Team2:
-					GUI.DrawTexture(new Rect(0,0,Screen.width,Screen.height),team2Texture);
-					break;
-
-					case Team.Team3:
-					GUI.DrawTexture(new Rect(0,0,Screen.width,Screen.height),team3Texture);
-					break;
-
-					case Team.Team4:
-					GUI.DrawTexture(new Rect(0,0,Screen.width,Screen.height),team4Texture);
-					break;
-				}
-
-
 				customButton = new GUIStyle("button");
-				float border = Screen.width/24;
-				float box = (((Screen.width/24) * 22)/3);
-				float height = Screen.height/13;
+				float border = Screen.width/48;
+				float box = (((Screen.width/48) * 46)/3);
+				float height = Screen.height/8;
 				
 				//Backpack
 				customButton.normal.background = Backpack;
 				customButton.hover.background = Backpack;
-				if (GUI.Button(new Rect(border, Screen.height-height, box, height), "", customButton)){
+				if (GUI.Button(new Rect(border, Screen.height-height-height/2, box*0.9f, height*1.5f), "", customButton)){
 					playerState = PlayerState.Backpack;
 				}
 
-				//Photo = Should be help button
+				//Help
 				customButton.normal.background = Photo;
 				customButton.hover.background = Photo;
-				if (GUI.Button(new Rect(border + box, Screen.height-height, box, height), "", customButton)){
-					currentPlayer.helpNeeded = true;
+				if (GUI.Button(new Rect(border*2 + box, Screen.height-(height/4)*3, box, height/2), "", customButton)){
+					currentPlayer.help = true;
 					playerState = PlayerState.Help;
 				}
 
 				//Map
 				customButton.normal.background = Map;
 				customButton.hover.background = Map;
-				if (GUI.Button(new Rect(border + box + box, Screen.height-height, box, height), "", customButton)){
+				if (GUI.Button(new Rect(border*3 + box + box, Screen.height-height-height/4, box*0.8f, height), "", customButton)){
 					playerState = PlayerState.Map;
 				}
 			break;
@@ -302,10 +283,11 @@ public class PlayerUI : NetworkBehaviour {
 					GUI.DrawTexture(new Rect(Screen.width/4,Screen.height/40,Screen.width/2,Screen.height/3.5f),GarryTop);
 
 					if(currentTextNumber != currentPlayer.textInfo.Count){
-						GUI.DrawTexture(new Rect(Screen.width/20, (Screen.height/6)*2, Screen.width/1.2f, Screen.height/3),infoBox);
+						GUI.DrawTexture(new Rect(Screen.width/40, (Screen.height/6)*2, Screen.width - Screen.width/20, Screen.height/3),infoBox);
 
 						string currentText = currentPlayer.textInfo[currentTextNumber];
-						GUI.Box(new Rect(Screen.width/20, (Screen.height/6)*2, Screen.width/1.2f, Screen.height/3), currentText, textStyle);
+						currentText = currentText.Replace("<br>", "\n");
+						GUI.Box(new Rect(Screen.width/40, (Screen.height/6)*2, Screen.width - Screen.width/20, Screen.height/3), currentText, textStyle);
 
 						ChangeGUI(styleButton,next);
 						if(GUI.Button(new Rect(Screen.width/16, (Screen.height/16)*11,Screen.width/3,Screen.height/12),"",styleButton)){
@@ -513,3 +495,21 @@ public class PlayerUI : NetworkBehaviour {
 		currentStyle.active.background = buttonTexture;
 	}
 }
+
+//switch(this.GetComponent<PlayerController>().currentTeam){
+				// 	case Team.Team1:
+				// 	GUI.DrawTexture(new Rect(0,0,Screen.width,Screen.height),team1Texture);
+				// 	break;
+
+				// 	case Team.Team2:
+				// 	GUI.DrawTexture(new Rect(0,0,Screen.width,Screen.height),team2Texture);
+				// 	break;
+
+				// 	case Team.Team3:
+				// 	GUI.DrawTexture(new Rect(0,0,Screen.width,Screen.height),team3Texture);
+				// 	break;
+
+				// 	case Team.Team4:
+				// 	GUI.DrawTexture(new Rect(0,0,Screen.width,Screen.height),team4Texture);
+				// 	break;
+				// }

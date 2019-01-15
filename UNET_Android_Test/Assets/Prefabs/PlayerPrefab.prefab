@@ -300,9 +300,9 @@ MonoBehaviour:
     m_FixedHeight: 0
     m_StretchWidth: 1
     m_StretchHeight: 0
-  Backpack: {fileID: 2800000, guid: a349db07322f37b4db1f37dfa8a2073d, type: 3}
+  Backpack: {fileID: 2800000, guid: f6c225197fdd9c14ba52cc985a0bfba4, type: 3}
   Photo: {fileID: 2800000, guid: 0227c09e7284ae340acb14c0274204e1, type: 3}
-  Map: {fileID: 2800000, guid: 0506269ff152630408329d799c0aa6ed, type: 3}
+  Map: {fileID: 2800000, guid: 24e7e20ab77c6d84991458f0dde489c2, type: 3}
   team1Texture: {fileID: 2800000, guid: 8bfd473b310c64c418c55b0b6f8c40b5, type: 3}
   team1Framed: {fileID: 2800000, guid: 717e9e432c470ed40b36fd84e49ee3c8, type: 3}
   team2Texture: {fileID: 2800000, guid: 5d95ee1cede6b2b489472cb8a573f52c, type: 3}
@@ -368,6 +368,7 @@ MonoBehaviour:
   puzzle2: 0
   puzzle3: 0
   infoBusy: 0
+  help: 0
   helpNeeded: 0
   textInfo: []
   kairoPuzzle: {fileID: 0}
