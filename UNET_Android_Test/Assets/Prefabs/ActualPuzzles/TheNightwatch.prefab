@@ -679,31 +679,11 @@ MonoBehaviour:
   fout: {fileID: 2800000, guid: fb878e688e4185f4c84b796fbcf895bf, type: 3}
   Dyslectic_font: {fileID: 12800000, guid: 4c711bab75c30ef4bb958321176c0e7d, type: 3}
   information:
-  - "Leonardo van Pisa was een wiskundige in de 13e eeuw <br> die een plan had bedacht.
-    \u201CWat als ik een rij nummers maak, <br> waarvan het volgende nummer steeds
-    een sommetje is <br> van de voorgaande twee nummers?\u201D "
-  - 'Hierdoor kwam hij op de volgende rij uit: '
-  - '1 was de start, want hij moest ergens beginnen. '
-  - 'Voor de 1 staat nog niks om erbij op te tellen. <br> Hierdoor was de eerste som:  <br>
-    0 + 1 = 1'
-  - Nu ontstaat de rij 1, 1
-  - 'De volgende som was deze twee getallen samen, dus: <br> 1 + 1 = 2 '
-  - dit maakt de rij naar 1, 1, 2 <br> 1 + 2 = 3 maakt de rij 1, 1, 2, 3, <br>  2
-    + 3 = 5 maakt de rij 1, 1, 2, 3, 5z <br> 3 + 5 = 8 maakt de rij 1, 1, 2, 3, 5,
-    8
-  - '5 + 8 = 13 wordt 1, 1, 2, 3, 5, 8, 13 <br> En 8 + 13 = 21 wordt 1, 1, 2, 3, 5,
-    8, 13, 21 '
-  - 'Hierdoor kwam hij dus op het volgende rijtje uit: <br> 1, 1, 2, 3, 5, 8, 13,
-    21 <br> Door dit blokkenschema kunnen we een mooie spiraal tekenen.  '
-  - Deze spiraal wordt in kunst vaak gebruikt als een richtlijn. <br> Door deze spiraal
-    toe te passen, zorgt het ervoor dat <br> de beelden die in het schilderij staan
-    een route maken voor het oog om <br> te volgen, als je naar het schilderij kijkt.
-  - " Het zorgt er ook voor dat er een goede balans is tussen \u201Crustige\u201D
-    onderdelen, <br> met weinig details, en \u201Cdrukke onderdelen\u201D met veel
-    details. "
-  - "Dit wordt door kunstkenners gezien als een techniek om een goed <br> en prettig
-    ogend schilderij te maken.<br> Daarom wordt het ook wel de \u201CGouden Ratio\u201D
-    genoemd. Goud! Net zoals Ikzelf!"
+  - Verschillen tussen licht en donker trekken aandacht. Als je door je wimpers kijkt
+    vallen die gebieden nog meer op.
+  - dit heet licht/donker contrast wat anders was dan de meer platte werken uit de
+    vroege middeleeuwen
+  Images: []
 --- !u!114 &114667766633882800
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -46,11 +46,11 @@ MonoBehaviour:
   latitudeLocation: 0
   longitudeLocation: 0
   LocationTexture: {fileID: 2800000, guid: 8d558b681bbb820429dffc4835c9b288, type: 3}
-  mapTexture: {fileID: 2800000, guid: 716e829a0a4cfd54a91062c02dec52d7, type: 3}
-  minLatitude: 52.25055
-  maxLatitude: 52.25263
-  minLongitude: 5.253318
-  maxLongitude: 5.255185
+  mapTexture: {fileID: 2800000, guid: 371c3afc80d0bdd49a109175077f6793, type: 3}
+  minLatitude: 52.07953
+  maxLatitude: 52.081337
+  minLongitude: 5.133525
+  maxLongitude: 5.135505
   BackgroundTexture: {fileID: 2800000, guid: 9dab53f75aea6d947b0a7c4077f024b9, type: 3}
   TextBackground: {fileID: 2800000, guid: fb878e688e4185f4c84b796fbcf895bf, type: 3}
   ButtonBackground: {fileID: 2800000, guid: c987c015901a15149bb681640abe0e19, type: 3}
@@ -341,12 +341,12 @@ MonoBehaviour:
   Return: {fileID: 2800000, guid: f3155417a13a4714591223b9a5ab18d5, type: 3}
   next: {fileID: 2800000, guid: e14895984361dfc4d8c936f44e0827fc, type: 3}
   back: {fileID: 2800000, guid: 2a029d208fae22c45bdedaa798703692, type: 3}
-  MapBackground: {fileID: 2800000, guid: 716e829a0a4cfd54a91062c02dec52d7, type: 3}
+  MapBackground: {fileID: 2800000, guid: 371c3afc80d0bdd49a109175077f6793, type: 3}
   LocationTexture: {fileID: 2800000, guid: 8d558b681bbb820429dffc4835c9b288, type: 3}
-  minLatitude: 52.25055
-  maxLatitude: 52.25263
-  minLongitude: 5.253318
-  maxLongitude: 5.255185
+  minLatitude: 52.07953
+  maxLatitude: 52.08134
+  minLongitude: 5.133525
+  maxLongitude: 5.135505
   latitudeLocation: 0
   longitudeLocation: 0
 --- !u!114 &114505586440596736
