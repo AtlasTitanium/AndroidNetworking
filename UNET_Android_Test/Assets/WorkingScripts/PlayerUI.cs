@@ -377,7 +377,8 @@ public class PlayerUI : NetworkBehaviour {
 							GUI.DrawTexture(new Rect(Screen.width/20, (Screen.height/6)*2, Screen.width/1.2f, Screen.height/3),infoBox);
 
 							string currentText = currentPlayer.kairoPuzzle.information[currentTextNumber];
-							currentText = currentText.Replace("<br>", "\n");
+							currentText = SpliceText(currentText, 22);
+							currentText = currentText.Replace("<br>", "");
 							GUI.Box(new Rect(Screen.width/20, (Screen.height/6)*2, Screen.width/1.2f, Screen.height/3), currentText, textStyle);
 
 							ChangeGUI(styleButton,next);

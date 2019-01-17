@@ -89,8 +89,6 @@ public class ContrastPuzzle1 : NetworkBehaviour {
 						}
 						active = false;
 					}
-					pController.infoPuzzle = false;
-					startButton.gameObject.SetActive(false);
 					pController.GetComponent<PlayerUI>().playerState = PlayerState.None;
 					pController.GainScore(finalScore, 3);
 					won = false;

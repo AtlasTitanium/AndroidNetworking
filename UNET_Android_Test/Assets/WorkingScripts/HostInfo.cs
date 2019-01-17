@@ -214,10 +214,10 @@ public class HostInfo : NetworkBehaviour {
 					//RpcUpdatePlayer(2, true);
 				}
 			}
-			if(amountTeam1.Count != 0){
+			if(amountTeam2.Count != 0){
 				latitudeLocation = amountTeam2[currentPlayer].GetComponent<LocationTracking>().latitudeLocation;
 				longitudeLocation = amountTeam2[currentPlayer].GetComponent<LocationTracking>().longitudeLocation;
-				if(amountTeam1[currentPlayer].GetComponent<PlayerController>().helpNeeded){
+				if(amountTeam2[currentPlayer].GetComponent<PlayerController>().helpNeeded){
 					ChangeGUI(button,Onderweg);
 					if(GUI.Button(new Rect(0,Screen.height/2,Screen.width,Screen.height/10),"",button)){
 						RpcHelpIsComing(amountTeam2[currentPlayer]);
@@ -256,10 +256,10 @@ public class HostInfo : NetworkBehaviour {
 					//RpcUpdatePlayer(3, true);
 				}
 			}
-			if(amountTeam1.Count != 0){
+			if(amountTeam3.Count != 0){
 				latitudeLocation = amountTeam3[currentPlayer].GetComponent<LocationTracking>().latitudeLocation;
 				longitudeLocation = amountTeam3[currentPlayer].GetComponent<LocationTracking>().longitudeLocation;
-				if(amountTeam1[currentPlayer].GetComponent<PlayerController>().helpNeeded){
+				if(amountTeam3[currentPlayer].GetComponent<PlayerController>().helpNeeded){
 					ChangeGUI(button,Onderweg);
 					if(GUI.Button(new Rect(0,Screen.height/2,Screen.width,Screen.height/10),"",button)){
 						RpcHelpIsComing(amountTeam3[currentPlayer]);
@@ -298,10 +298,10 @@ public class HostInfo : NetworkBehaviour {
 					//RpcUpdatePlayer(4, true);
 				}
 			}
-			if(amountTeam1.Count != 0){
+			if(amountTeam4.Count != 0){
 				latitudeLocation = amountTeam4[currentPlayer].GetComponent<LocationTracking>().latitudeLocation;
 				longitudeLocation = amountTeam4[currentPlayer].GetComponent<LocationTracking>().longitudeLocation;
-				if(amountTeam1[currentPlayer].GetComponent<PlayerController>().helpNeeded){
+				if(amountTeam4[currentPlayer].GetComponent<PlayerController>().helpNeeded){
 					ChangeGUI(button,Onderweg);
 					if(GUI.Button(new Rect(0,Screen.height/2,Screen.width,Screen.height/10),"",button)){
 						RpcHelpIsComing(amountTeam4[currentPlayer]);
@@ -337,6 +337,9 @@ public class HostInfo : NetworkBehaviour {
 			}
 			
 			//BACKPACK=========================================================
+			kairoDone = false;
+			milkDone = false;
+			nightDone = false;
 			GUI.DrawTexture(new Rect(0, Screen.height/3, Screen.width, Screen.height/20), GroepPenseel);
 			for(int i = 0; i < amountTeam1.Count; i++){
 				if(amountTeam1[i].GetComponent<PlayerController>().puzzle1){
@@ -401,6 +404,9 @@ public class HostInfo : NetworkBehaviour {
 			}
 			
 			//BACKPACK=========================================================
+			kairoDone = false;
+			milkDone = false;
+			nightDone = false;
 			GUI.DrawTexture(new Rect(0, Screen.height/3, Screen.width, Screen.height/20), GroepPenseel);
 			for(int i = 0; i < amountTeam2.Count; i++){
 				if(amountTeam2[i].GetComponent<PlayerController>().puzzle1){
@@ -465,6 +471,9 @@ public class HostInfo : NetworkBehaviour {
 			}
 			
 			//BACKPACK=========================================================
+			kairoDone = false;
+			milkDone = false;
+			nightDone = false;
 			GUI.DrawTexture(new Rect(0, Screen.height/3, Screen.width, Screen.height/20), GroepPenseel);
 			for(int i = 0; i < amountTeam3.Count; i++){
 				if(amountTeam3[i].GetComponent<PlayerController>().puzzle1){
@@ -529,6 +538,9 @@ public class HostInfo : NetworkBehaviour {
 			}
 			
 			//BACKPACK=========================================================
+			kairoDone = false;
+			milkDone = false;
+			nightDone = false;
 			GUI.DrawTexture(new Rect(0, Screen.height/3, Screen.width, Screen.height/20), GroepPenseel);
 			for(int i = 0; i < amountTeam4.Count; i++){
 				if(amountTeam4[i].GetComponent<PlayerController>().puzzle1){
@@ -624,7 +636,7 @@ public class HostInfo : NetworkBehaviour {
 				}
 
 				//Team 4
-				string team4Info = "" + team2Score;
+				string team4Info = "" + team4Score;
 				HeighMargin += FrameHeight + OriginalWidthMargin;
 				GUI.DrawTexture(new Rect(WidthMargin, Screen.height/12 + HeighMargin, FrameWidth, FrameHeight), Team4_Texture, ScaleMode.StretchToFill, true, 10.0F);
 				GUI.Box(new Rect(((Screen.width/3)*2)-OriginalWidthMargin, Screen.height/12 + HeighMargin + OriginalWidthMargin, Screen.width/3.5f, Screen.height/6), team4Info, ChangeGUI(style, ScoreBlock));

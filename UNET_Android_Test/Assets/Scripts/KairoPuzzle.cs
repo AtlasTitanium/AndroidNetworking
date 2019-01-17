@@ -41,7 +41,7 @@ public class KairoPuzzle : NetworkBehaviour {
 			return;
 		}
 
-		brokenPuzzle.SetActive(!pController.puzzle3);
+		brokenPuzzle.SetActive(!pController.puzzle1);
 
 		if(!startPuzzleButton.gameObject.activeSelf){
 			Debug.Log("puzzle running");
@@ -85,6 +85,14 @@ public class KairoPuzzle : NetworkBehaviour {
 			if(GUI.Button(new Rect(Screen.width/8,Screen.height/4,Screen.width/1.25f,Screen.height/2), score, end)){
 				pController.GetComponent<PlayerUI>().playerState = PlayerState.None;
 				pController.GainScore(finalScore,1);
+				if(active){
+					for(int i = 0; i < information.Count; i++){
+						Debug.Log(i);
+						pController.textInfo.RemoveAt(0);
+					}
+					active = false;
+				}
+				won = false;
 				this.enabled = false;
 			}
 		} 
@@ -104,10 +112,7 @@ public class KairoPuzzle : NetworkBehaviour {
 		foreach(GameObject piece in puzzlePieces){
 			piece.GetComponent<Draggable>().enabled = true;
 		}
-		while(startPuzzleButton.gameObject.activeSelf){
-			//Debug.Log("still active");
-			startPuzzleButton.gameObject.SetActive(false);
-		}
+		startPuzzleButton.gameObject.SetActive(false);
 		//Debug.Log("start puzzle");
 
 		active = true;
@@ -128,9 +133,7 @@ public class KairoPuzzle : NetworkBehaviour {
 		foreach(GameObject piece in puzzlePieces){
 			piece.GetComponent<Draggable>().enabled = false;
 		}
-		while(!startPuzzleButton.gameObject.activeSelf){
-			startPuzzleButton.gameObject.SetActive(true);
-		}
+		startPuzzleButton.gameObject.SetActive(true);
 		if(active){
 			for(int i = 0; i < information.Count; i++){
 				Debug.Log(i);
